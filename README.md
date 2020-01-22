@@ -1,5 +1,8 @@
 # ShareQR
 
+## About
+Share selected text or page URL as QR code
+
 ## Features
 
 ## License
