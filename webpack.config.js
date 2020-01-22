@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     background: './src/background.ts',
-    popup: './src/popup.tsx'
+    popup: './src/popup/popup.tsx'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new CopyPlugin([
       'src/manifest.json',
-      'src/popup.html',
+      'src/popup/popup.html',
       { from: 'src/icons', to: 'icons' }
     ])
   ]
