@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "checkJs": false,
-    "outDir": "dist",
-    "strict": true,
-    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es6",
+    "module": "commonjs",
+    "jsx": "react",
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

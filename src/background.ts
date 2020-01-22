@@ -9,5 +9,7 @@ extension.contextMenus.create({
 extension.contextMenus.onClicked.addListener((info: any, tab: any) => {
   if (info.menuItemId === 'share-as-qr-code') {
     console.log(info.selectionText);
+
+    extension.browserAction.openPopup();
   }
 });
