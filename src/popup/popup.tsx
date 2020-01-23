@@ -8,7 +8,6 @@ import './popup.css';
 const Popup = () => {
   const ref = useRef();
 
-  const [url, setUrl] = useState('');
   const [error, setError] = useState('');
 
   const supportedProtocols = ['http', 'https'];
@@ -17,26 +16,15 @@ const Popup = () => {
     const currentPageProtocol = res[0].url.split(':')[0];
 
     if (supportedProtocols.includes(currentPageProtocol)) {
-      setUrl(res[0].url);
-
       QrCode.toCanvas(ref.current, res[0].url, {
-        width: 260
+        width: 360
       });
     } else {
       setError(`Protocol ${currentPageProtocol} is not supported`);
     }
   });
 
-  return error ? (
-    <p>{error}</p>
-  ) : (
-    <>
-      <canvas ref={ref} />
-
-      <h4>QR code represents:</h4>
-      <p>{url}</p>
-    </>
-  );
+  return error ? <p>{error}</p> : <canvas ref={ref} />;
 };
 
 ReactDOM.render(<Popup />, document.getElementById('root'));
