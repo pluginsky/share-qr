@@ -5,7 +5,6 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: {
-    background: './src/background.ts',
     popup: './src/popup/popup.tsx'
   },
   output: {
