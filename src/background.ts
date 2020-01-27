@@ -10,7 +10,7 @@ extension.contextMenus.create({
   contexts: ['selection']
 });
 
-extension.contextMenus.onClicked.addListener((info: any, tab: any) => {
+extension.contextMenus.onClicked.addListener((info: any) => {
   let sharedText: string;
 
   if (info.menuItemId === 'share-as-qr-code') {
