@@ -14,7 +14,7 @@ extension.contextMenus.onClicked.addListener((info: any, tab: any) => {
   let sharedText: string;
 
   if (info.menuItemId === 'share-as-qr-code') {
-    if (info.selectionText > 60) {
+    if (info.selectionText.length > 60) {
       sharedText = info.selectionText.substring(0, 60);
     } else {
       sharedText = info.selectionText;
