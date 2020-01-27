@@ -1,15 +1,15 @@
 {
   "name": "share-qr",
-  "version": "1.0.0",
-  "description": "Share page URL as QR code",
+  "version": "2.0.0",
+  "description": "Share selected text or page URL as QR code",
   "author": "Jakub Biesiada",
   "license": "MIT",
   "scripts": {
     "release": "rimraf dist/* && npm run prettier && npm run lint && npm run build",
     "build": "webpack",
     "watch": "npm run build -- --watch",
-    "lint": "eslint 'src/**/*.tsx' --fix",
-    "prettier": "prettier --write 'src/**/*.tsx'"
+    "lint": "eslint 'src/**/*.{tsx,ts}' --fix",
+    "prettier": "prettier --write 'src/**/*.{tsx,ts}'"
   },
   "dependencies": {
     "qrcode": "^1.4.4",
@@ -42,7 +42,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{tsx}": [
+    "src/**/*.{tsx,ts}": [
       "npm run prettier",
       "npm run lint"
     ]
