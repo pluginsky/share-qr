@@ -11,16 +11,11 @@ extension.contextMenus.create({
 });
 
 extension.contextMenus.onClicked.addListener((info: any) => {
-  let sharedText: string;
-
   if (info.menuItemId === 'share-as-qr-code') {
-    if (info.selectionText.length > 60) {
-      sharedText = info.selectionText.substring(0, 60);
-    } else {
-      sharedText = info.selectionText;
-    }
-
-    extension.storage.local.set({ sharedText });
+    extension.storage.local.set({
+      selectedText: info.selectionText,
+      currentTab: 'text'
+    });
 
     extension.browserAction.openPopup();
   }
