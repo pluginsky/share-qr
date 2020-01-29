@@ -74,6 +74,13 @@ const Popup = () => {
     extension.storage.local.set({ currentTab: tab });
   }, [tab]);
 
+  const clearText = () => {
+    extension.storage.local.set({ selectedText: null });
+
+    setText('');
+    setError('Add selected text first');
+  };
+
   return (
     <div className="container">
       <header>
@@ -100,6 +107,8 @@ const Popup = () => {
         {((tab === 'url' && url) || (tab === 'text' && text)) && (
           <>
             <canvas ref={ref} />
+
+            {text && <button onClick={clearText}>X</button>}
 
             <details>
               <summary>Encoded {tab === 'url' ? 'URL' : 'Text'}</summary>
