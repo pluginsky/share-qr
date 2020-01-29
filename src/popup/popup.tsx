@@ -6,6 +6,7 @@ import TabItem from './components/TabItem';
 
 import { renderQrCode } from './helpers/renderQrCode';
 import { trimText } from './helpers/trimText';
+import { markOutOfLimit } from './helpers/markOutOfLimit';
 
 import { supportedProtocols } from './constants/supportedProtocols';
 
@@ -102,7 +103,7 @@ const Popup = () => {
 
             <details>
               <summary>Encoded {tab === 'url' ? 'URL' : 'Text'}</summary>
-              <p>{tab === 'url' ? url : text}</p>
+              <p>{markOutOfLimit(tab === 'url' ? url : text)}</p>
             </details>
           </>
         )}

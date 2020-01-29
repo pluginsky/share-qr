@@ -54,6 +54,10 @@ details summary {
   cursor: pointer;
 }
 
+.out-of-limit {
+  color: #c40c37;
+}
+
 .error-message {
   text-align: center;
 }
