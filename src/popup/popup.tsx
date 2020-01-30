@@ -1,85 +1,33 @@
-import React, { useRef, useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import extension from 'extensionizer';
+import React, { useEffect, useRef, useContext } from 'react';
 
 import TabItem from './components/TabItem';
 
-import { renderQrCode } from './helpers/renderQrCode';
 import { trimText } from './helpers/trimText';
 import { markOutOfLimit } from './helpers/markOutOfLimit';
 
-import { supportedProtocols } from './constants/supportedProtocols';
+import { useUrl } from './hooks/useUrl';
+import { useSelectedText } from './hooks/useSelectedText';
+import { useQrCode } from './hooks/useQrCode';
+
+import { PopupContext } from './context';
 
 import './popup.css';
 
-const Popup = () => {
+export const Popup = () => {
   const ref = useRef();
 
-  const [url, setUrl] = useState('');
-  const [text, setText] = useState('');
-  const [error, setError] = useState('');
+  const { error, tab, setTab } = useContext(PopupContext);
 
-  const [tab, setTab] = useState('url');
+  const { url } = useUrl();
+  const { text, clearText } = useSelectedText();
 
-  useEffect(() => {
-    const getDataFromCurrentUrl = () => {
-      extension.tabs.query(
-        { currentWindow: true, active: true },
-        (res: any) => {
-          const currentPageProtocol = res[0].url.split(':')[0];
-
-          if (supportedProtocols.includes(currentPageProtocol)) {
-            setUrl(res[0].url);
-            setError('');
-          } else {
-            setError(`Protocol ${currentPageProtocol} is not supported`);
-          }
-        }
-      );
-    };
-
-    const getDataFromSelectedText = () => {
-      extension.storage.local.get('selectedText', (res: any) => {
-        if (res.selectedText) {
-          setText(res.selectedText);
-          setError('');
-        } else {
-          setError('Add selected text first');
-        }
-      });
-    };
-
-    if (tab === 'url') {
-      getDataFromCurrentUrl();
-    } else {
-      getDataFromSelectedText();
-    }
-  }, [tab]);
-
-  useEffect(() => {
-    extension.storage.local.get('currentTab', (res: any) => {
-      if (res.currentTab) {
-        setTab(res.currentTab);
-      }
-    });
-  }, []);
+  const { renderQrCode } = useQrCode();
 
   useEffect(() => {
     if (url || text) {
       renderQrCode(ref.current, trimText(tab === 'url' ? url : text, 1000));
     }
   }, [tab, url, text]);
-
-  useEffect(() => {
-    extension.storage.local.set({ currentTab: tab });
-  }, [tab]);
-
-  const clearText = () => {
-    extension.storage.local.set({ selectedText: null });
-
-    setText('');
-    setError('Add selected text first');
-  };
 
   return (
     <div className="container">
@@ -108,7 +56,7 @@ const Popup = () => {
           <>
             <canvas ref={ref} />
 
-            {text && <button onClick={clearText}>X</button>}
+            {tab === 'text' && text && <button onClick={clearText}>X</button>}
 
             <details>
               <summary>Encoded {tab === 'url' ? 'URL' : 'Text'}</summary>
@@ -122,5 +70,3 @@ const Popup = () => {
     </div>
   );
 };
-
-ReactDOM.render(<Popup />, document.getElementById('root'));
