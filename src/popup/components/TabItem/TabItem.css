@@ -19,6 +19,8 @@
   user-select: none;
   transition: opacity 200ms ease, transform 200ms ease;
   position: relative;
+  height: 22px;
+  line-height: 2.2rem;
   margin: 2px;
   flex: 1;
 }
@@ -37,8 +39,7 @@
   transition: background-color 200ms ease;
   position: absolute;
   height: 22px;
-  transform: translateY(-50%);
-  top: 50%;
+  top: 0;
 }
 
 .tab-item input:checked + label::before {
