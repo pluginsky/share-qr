@@ -3,20 +3,15 @@ import extension from 'extensionizer';
 
 import { PopupContext } from '../context';
 
-export const useSelectedText = () => {
+export const useText = () => {
   const [text, setText] = useState('');
 
-  const { setError, tab } = useContext(PopupContext);
+  const { tab } = useContext(PopupContext);
 
   useEffect(() => {
     if (tab === 'text') {
       extension.storage.local.get('selectedText', (res: any) => {
-        if (res.selectedText) {
-          setText(res.selectedText);
-          setError('');
-        } else {
-          setError('Add selected text first');
-        }
+        if (res.selectedText) setText(res.selectedText);
       });
     }
   }, [tab]);
@@ -25,8 +20,13 @@ export const useSelectedText = () => {
     extension.storage.local.set({ selectedText: null });
 
     setText('');
-    setError('Add selected text first');
   };
 
-  return { text, clearText };
+  const editText = (newValue: string) => {
+    extension.storage.local.set({ selectedText: newValue });
+
+    setText(newValue);
+  };
+
+  return { text, editText, clearText };
 };

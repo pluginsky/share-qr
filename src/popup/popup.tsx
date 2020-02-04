@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useContext } from 'react';
 
+import TabBar from './components/TabBar';
 import TabItem from './components/TabItem';
+import Details from './components/Details';
+import ErrorMessage from './components/ErrorMessage';
 
 import { trimText } from './helpers/trimText';
-import { markOutOfLimit } from './helpers/markOutOfLimit';
+// import { markOutOfLimit } from './helpers/markOutOfLimit';
 
 import { useUrl } from './hooks/useUrl';
-import { useSelectedText } from './hooks/useSelectedText';
+import { useText } from './hooks/useText';
 import { useQrCode } from './hooks/useQrCode';
 
 import { PopupContext } from './context';
@@ -19,7 +22,7 @@ export const Popup = () => {
   const { error, tab, setTab } = useContext(PopupContext);
 
   const { url } = useUrl();
-  const { text, clearText } = useSelectedText();
+  const { text, editText, clearText } = useText();
 
   const { renderQrCode } = useQrCode();
 
@@ -32,7 +35,7 @@ export const Popup = () => {
   return (
     <div className="container">
       <header>
-        <nav className="tab-navigation">
+        <TabBar>
           <TabItem
             name="tab"
             value="url"
@@ -48,7 +51,7 @@ export const Popup = () => {
             onChange={e => setTab(e.target.value)}
             title="Selected Text"
           />
-        </nav>
+        </TabBar>
       </header>
 
       <main>
@@ -58,14 +61,25 @@ export const Popup = () => {
 
             {tab === 'text' && text && <button onClick={clearText}>X</button>}
 
-            <details>
-              <summary>Encoded {tab === 'url' ? 'URL' : 'Text'}</summary>
-              <p>{markOutOfLimit(tab === 'url' ? url : text)}</p>
-            </details>
+            {/* {tab === 'text' && text && (
+              <button onClick={setEditable}>{editable ? 'Save' : 'Edit'}</button>
+            )} */}
+
+            <Details summary={`Encoded ${tab === 'url' ? 'URL' : 'Text'}`}>
+              {/* <p>{markOutOfLimit(tab === 'url' ? url : text)}</p> */}
+
+              <input
+                type="text"
+                placeholder="Add selected text first"
+                value={tab === 'url' ? url : text}
+                // value={markOutOfLimit(tab === 'url' ? url : text)}
+                // onChange={e => editText(e.target.value)}
+              />
+            </Details>
           </>
         )}
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <ErrorMessage message={error} />}
       </main>
     </div>
   );
