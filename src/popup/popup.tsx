@@ -5,9 +5,9 @@ import TabBar from './components/TabBar';
 import TabItem from './components/TabItem';
 import Details from './components/Details';
 import ErrorMessage from './components/ErrorMessage';
+import DecodedPreview from './components/DecodedPreview';
 
 import { trimText } from './helpers/trimText';
-import { markOutOfLimit } from './helpers/markOutOfLimit';
 
 import { useUrl } from './hooks/useUrl';
 import { useText } from './hooks/useText';
@@ -21,14 +21,7 @@ export const Popup = () => {
 
   const { url } = useUrl();
 
-  const {
-    text,
-    setText,
-    // debounced,
-    clearText,
-    toggleEitable,
-    editable
-  } = useText();
+  const { text } = useText();
 
   const [decoded, setDecoded] = useState('');
 
@@ -69,26 +62,8 @@ export const Popup = () => {
           <>
             <img src={encoded} alt={trimmed} />
 
-            {/* {tab === 'text' && text && (
-              <button className="button--clear" onClick={clearText} />
-            )}
-
-            {tab === 'text' && text && (
-              <button className="button--editable" onClick={toggleEitable}>
-                Edit
-              </button>
-            )} */}
-
             <Details summary={`Encoded ${tab === 'url' ? 'URL' : 'Text'}`}>
-              <p>{markOutOfLimit(tab === 'url' ? url : text)}</p>
-
-              {/* <textarea
-                placeholder="Add selected text first"
-                value={decoded}
-                disabled={!editable}
-                // value={markOutOfLimit(decoded)}
-                onChange={e => setText(e.target.value)}
-              /> */}
+              <DecodedPreview text={decoded} />
             </Details>
           </>
         )}

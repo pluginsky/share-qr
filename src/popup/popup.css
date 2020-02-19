@@ -10,9 +10,9 @@ body {
 }
 
 .container {
-  max-height: 500px;
   display: flex;
   flex-direction: column;
+  max-height: 500px;
 }
 
 canvas {
@@ -28,66 +28,7 @@ header {
   border-bottom: 1px solid #ddd;
 }
 
-.tab-navigation {
-  width: 80%;
-  height: 26px;
-  background-color: #efefef;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  position: relative;
-}
-
 main {
   overflow: auto;
   flex: 1;
 }
-
-details {
-  padding: 10px 20px 20px;
-}
-
-details summary {
-  font-size: 1.4rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-details p {
-  overflow-wrap: break-word;
-  margin-bottom: 0;
-}
-
-.out-of-limit {
-  color: #ff0000;
-}
-
-.error-message {
-  text-align: center;
-}
-/* 
-.button--clear {
-  width: 30px;
-  height: 30px;
-  border: 0;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #efefef;
-  line-height: 30px;
-  position: relative;
-}
-
-.button--clear::before {
-  content: '×';
-  font-weight: 500;
-  line-height: 24px;
-  width: 26px;
-  height: 26px;
-  top: 2px;
-  right: 2px;
-  border-radius: 50%;
-  position: absolute;
-  background-color: #fff;
-} */

@@ -4,7 +4,7 @@ import './Details.css';
 
 interface Props {
   summary: string;
-  children: ReactChildren | ReactChildren[];
+  children: ReactChildren | ReactChildren[] | any;
 }
 
 const Details = ({ summary, children }: Props) => (
