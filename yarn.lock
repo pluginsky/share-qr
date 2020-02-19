@@ -3304,10 +3304,10 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-qr-hooks@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-qr-hooks/-/react-qr-hooks-1.0.2.tgz#4a31e6ff3121c849867c0e36bb55a905b72b2b7c"
-  integrity sha512-Mh46a5dJv/IGGNYRLnQhMVbbx1dMZrJ65czxXgPI4CRrcOpICj2WOtluKQ5UhUM5lPItKkQ5R8y/4psEwtY44A==
+react-qr-hooks@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-qr-hooks/-/react-qr-hooks-1.0.5.tgz#c398b982c0fb84beb7365487c706983e0ca37813"
+  integrity sha512-GK1ci7FEJ7UO62gXWaqduyBuQkInd48VmpYhxXSjEOwhLaqH9XtcaAQlP5Txt9kS74dgMYd607w8F+0OAUy5Zg==
   dependencies:
     qrcode "^1.4.4"
     qrcode-decoder "^0.1.2"

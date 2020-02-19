@@ -33,7 +33,7 @@ export const Popup = () => {
 
   const encoded = useQrEncode(trimmed, {
     width: 360
-  } as any);
+  });
 
   return (
     <div className="container">
