@@ -17,8 +17,6 @@ extension.contextMenus.onClicked.addListener((info: any) => {
       currentTab: 'text'
     });
 
-    console.log(extension.browserAction.openPopup);
-
     extension.browserAction.openPopup();
   }
 });

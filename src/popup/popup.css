@@ -54,10 +54,40 @@ details summary {
   cursor: pointer;
 }
 
+details p {
+  overflow-wrap: break-word;
+  margin-bottom: 0;
+}
+
 .out-of-limit {
-  color: #c40c37;
+  color: #ff0000;
 }
 
 .error-message {
   text-align: center;
 }
+/* 
+.button--clear {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #efefef;
+  line-height: 30px;
+  position: relative;
+}
+
+.button--clear::before {
+  content: '×';
+  font-weight: 500;
+  line-height: 24px;
+  width: 26px;
+  height: 26px;
+  top: 2px;
+  right: 2px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #fff;
+} */

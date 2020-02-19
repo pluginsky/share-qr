@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useQrEncode } from 'react-qr-hooks';
 
 import TabBar from './components/TabBar';
 import TabItem from './components/TabItem';
@@ -6,31 +7,40 @@ import Details from './components/Details';
 import ErrorMessage from './components/ErrorMessage';
 
 import { trimText } from './helpers/trimText';
-// import { markOutOfLimit } from './helpers/markOutOfLimit';
+import { markOutOfLimit } from './helpers/markOutOfLimit';
 
 import { useUrl } from './hooks/useUrl';
 import { useText } from './hooks/useText';
-import { useQrCode } from './hooks/useQrCode';
 
 import { PopupContext } from './context';
 
 import './popup.css';
 
 export const Popup = () => {
-  const ref = useRef();
-
   const { error, tab, setTab } = useContext(PopupContext);
 
   const { url } = useUrl();
-  const { text, editText, clearText } = useText();
 
-  const { renderQrCode } = useQrCode();
+  const {
+    text,
+    setText,
+    // debounced,
+    clearText,
+    toggleEitable,
+    editable
+  } = useText();
+
+  const [decoded, setDecoded] = useState('');
 
   useEffect(() => {
-    if (url || text) {
-      renderQrCode(ref.current, trimText(tab === 'url' ? url : text, 1000));
-    }
+    setDecoded(tab === 'url' ? url : text);
   }, [tab, url, text]);
+
+  const trimmed = trimText(decoded, 1000);
+
+  const encoded = useQrEncode(trimmed, {
+    width: 360
+  } as any);
 
   return (
     <div className="container">
@@ -57,24 +67,28 @@ export const Popup = () => {
       <main>
         {((tab === 'url' && url) || (tab === 'text' && text)) && (
           <>
-            <canvas ref={ref} />
-
-            {tab === 'text' && text && <button onClick={clearText}>X</button>}
+            <img src={encoded} alt={trimmed} />
 
             {/* {tab === 'text' && text && (
-              <button onClick={setEditable}>{editable ? 'Save' : 'Edit'}</button>
+              <button className="button--clear" onClick={clearText} />
+            )}
+
+            {tab === 'text' && text && (
+              <button className="button--editable" onClick={toggleEitable}>
+                Edit
+              </button>
             )} */}
 
             <Details summary={`Encoded ${tab === 'url' ? 'URL' : 'Text'}`}>
-              {/* <p>{markOutOfLimit(tab === 'url' ? url : text)}</p> */}
+              <p>{markOutOfLimit(tab === 'url' ? url : text)}</p>
 
-              <input
-                type="text"
+              {/* <textarea
                 placeholder="Add selected text first"
-                value={tab === 'url' ? url : text}
-                // value={markOutOfLimit(tab === 'url' ? url : text)}
-                // onChange={e => editText(e.target.value)}
-              />
+                value={decoded}
+                disabled={!editable}
+                // value={markOutOfLimit(decoded)}
+                onChange={e => setText(e.target.value)}
+              /> */}
             </Details>
           </>
         )}

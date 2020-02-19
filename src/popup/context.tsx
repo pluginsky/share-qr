@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+
 import { useTabs } from './hooks/useTabs';
 
 export const PopupContext = React.createContext(null);
 
 export const StateProvider = ({ children }) => {
-  const [error, setError] = useState();
+  const [error, setError] = useState('');
 
   const [tab, setTab] = useTabs('url');
 

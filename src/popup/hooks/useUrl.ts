@@ -25,6 +25,8 @@ export const useUrl = () => {
           }
         }
       );
+    } else {
+      setError('');
     }
   }, [tab]);
 

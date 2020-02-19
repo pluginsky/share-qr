@@ -1,17 +1,24 @@
 import { useState, useEffect, useContext } from 'react';
+import { useDebounce } from 'use-debounce';
 import extension from 'extensionizer';
 
 import { PopupContext } from '../context';
 
 export const useText = () => {
   const [text, setText] = useState('');
+  const [editable, setEditable] = useState(false);
+  // const [debounced] = useDebounce(text, 500);
 
-  const { tab } = useContext(PopupContext);
+  const { tab, setError } = useContext(PopupContext);
 
   useEffect(() => {
     if (tab === 'text') {
       extension.storage.local.get('selectedText', (res: any) => {
-        if (res.selectedText) setText(res.selectedText);
+        if (res.selectedText) {
+          setText(res.selectedText);
+        } else {
+          setError('Select text');
+        }
       });
     }
   }, [tab]);
@@ -22,11 +29,20 @@ export const useText = () => {
     setText('');
   };
 
-  const editText = (newValue: string) => {
-    extension.storage.local.set({ selectedText: newValue });
+  useEffect(() => {
+    // extension.storage.local.set({ selectedText: debounced });
+  }, []);
 
-    setText(newValue);
+  const toggleEitable = () => {
+    setEditable(!editable);
   };
 
-  return { text, editText, clearText };
+  return {
+    text,
+    setText,
+    // debounced,
+    clearText,
+    toggleEitable,
+    editable
+  };
 };
