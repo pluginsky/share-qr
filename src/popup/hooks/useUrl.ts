@@ -19,6 +19,7 @@ export const useUrl = () => {
 
           if (supportedProtocols.includes(currentPageProtocol)) {
             setUrl(res[0].url);
+
             setError('');
           } else {
             setError(
