@@ -10,7 +10,7 @@ interface Props {
 
 const DecodedPreview = ({ text }: Props) => (
   <p>
-    <span>{trimText(text, 1000)}</span>
+    {trimText(text, 1000)}
     <span className="out-of-limit">{text.slice(1000)}</span>
   </p>
 );
