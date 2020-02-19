@@ -5,14 +5,15 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: {
-    popup: './src/popup/popup.tsx'
+    background: './src/background.ts',
+    popup: './src/popup/index.tsx'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['.tsx', '.js']
+    extensions: ['.tsx', '.ts', '.js']
   },
   module: {
     rules: [

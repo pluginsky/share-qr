@@ -1,30 +1,75 @@
-import React, { useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import extension from 'extensionizer';
-import QrCode from 'qrcode';
+import React, { useState, useEffect, useContext } from 'react';
+import { useQrEncode } from 'react-qr-hooks';
+
+import TabBar from './components/TabBar';
+import TabItem from './components/TabItem';
+import Details from './components/Details';
+import ErrorMessage from './components/ErrorMessage';
+import DecodedPreview from './components/DecodedPreview';
+
+import { trimText } from './helpers/trimText';
+
+import { useUrl } from './hooks/useUrl';
+import { useText } from './hooks/useText';
+
+import { PopupContext } from './context';
 
 import './popup.css';
 
-const Popup = () => {
-  const ref = useRef();
+export const Popup = () => {
+  const { error, tab, setTab } = useContext(PopupContext);
 
-  const [error, setError] = useState('');
+  const { url } = useUrl();
 
-  const supportedProtocols = ['http', 'https'];
+  const { text } = useText();
 
-  extension.tabs.query({ currentWindow: true, active: true }, (res: any) => {
-    const currentPageProtocol = res[0].url.split(':')[0];
+  const [decoded, setDecoded] = useState('');
 
-    if (supportedProtocols.includes(currentPageProtocol)) {
-      QrCode.toCanvas(ref.current, res[0].url, {
-        width: 360
-      });
-    } else {
-      setError(`Protocol ${currentPageProtocol} is not supported`);
-    }
-  });
+  useEffect(() => {
+    setDecoded(tab === 'url' ? url : text);
+  }, [tab, url, text]);
 
-  return error ? <p>{error}</p> : <canvas ref={ref} />;
+  const trimmed = trimText(decoded, 1000);
+
+  const encoded = useQrEncode(trimmed, {
+    width: 360
+  } as any);
+
+  return (
+    <div className="container">
+      <header>
+        <TabBar>
+          <TabItem
+            name="tab"
+            value="url"
+            checked={tab === 'url'}
+            onChange={e => setTab(e.target.value)}
+            title="Current URL"
+          />
+
+          <TabItem
+            name="tab"
+            value="text"
+            checked={tab === 'text'}
+            onChange={e => setTab(e.target.value)}
+            title="Selected Text"
+          />
+        </TabBar>
+      </header>
+
+      <main>
+        {((tab === 'url' && url) || (tab === 'text' && text)) && (
+          <>
+            <img src={encoded} alt={trimmed} />
+
+            <Details summary={`Encoded ${tab === 'url' ? 'URL' : 'Text'}`}>
+              <DecodedPreview text={decoded} />
+            </Details>
+          </>
+        )}
+
+        {error && <ErrorMessage message={error} />}
+      </main>
+    </div>
+  );
 };
-
-ReactDOM.render(<Popup />, document.getElementById('root'));
