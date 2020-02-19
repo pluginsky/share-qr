@@ -21,7 +21,9 @@ export const useUrl = () => {
             setUrl(res[0].url);
             setError('');
           } else {
-            setError(`Protocol ${currentPageProtocol} is not supported`);
+            setError(
+              `Protocol ${currentPageProtocol.toUpperCase()} is not supported`
+            );
           }
         }
       );
