@@ -1,6 +1,6 @@
 import extension from 'extensionizer';
 
-extension.runtime.onStartup.addListener(function() {
+extension.runtime.onStartup.addListener(() => {
   extension.storage.local.clear();
 });
 

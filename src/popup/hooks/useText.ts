@@ -14,7 +14,7 @@ export const useText = () => {
         if (res.selectedText) {
           setText(res.selectedText);
         } else {
-          setError('Select text');
+          setError('First select the text to be encoded');
         }
       });
     }
