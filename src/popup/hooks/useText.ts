@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 import extension from 'extensionizer';
 
-import { PopupContext } from '../context';
+import { StateContext } from '../context';
 
 export const useText = () => {
   const [text, setText] = useState('');
 
-  const { tab, setError } = useContext(PopupContext);
+  const { tab, setError } = useContext(StateContext);
 
   useEffect(() => {
     if (tab === 'text') {

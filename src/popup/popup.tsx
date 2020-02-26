@@ -12,12 +12,12 @@ import { trimText } from './helpers/trimText';
 import { useUrl } from './hooks/useUrl';
 import { useText } from './hooks/useText';
 
-import { PopupContext } from './context';
+import { StateContext } from './context';
 
 import './popup.css';
 
 export const Popup = () => {
-  const { error, tab, setTab } = useContext(PopupContext);
+  const { error, tab, setTab } = useContext(StateContext);
 
   const { url } = useUrl();
 

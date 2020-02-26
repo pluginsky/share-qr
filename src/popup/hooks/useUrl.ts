@@ -3,12 +3,12 @@ import extension from 'extensionizer';
 
 import { supportedProtocols } from '../constants/supportedProtocols';
 
-import { PopupContext } from '../context';
+import { StateContext } from '../context';
 
 export const useUrl = () => {
   const [url, setUrl] = useState('');
 
-  const { setError, tab } = useContext(PopupContext);
+  const { setError, tab } = useContext(StateContext);
 
   useEffect(() => {
     if (tab === 'url') {
