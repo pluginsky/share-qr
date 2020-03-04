@@ -1,9 +1,11 @@
-import React, { ReactChildren } from 'react';
+import React from 'react';
+
+import { Children } from '../../types/Children';
 
 import './TabBar.css';
 
 interface Props {
-  children: ReactChildren | ReactChildren[] | any;
+  children: Children;
 }
 
 const TabBar = ({ children }: Props) => (

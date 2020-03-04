@@ -14,7 +14,7 @@ export const useUrl = () => {
     if (tab === 'url') {
       extension.tabs.query(
         { currentWindow: true, active: true },
-        (res: any) => {
+        (res: { url: string }) => {
           const currentPageProtocol = res[0].url.split(':')[0];
 
           if (supportedProtocols.includes(currentPageProtocol)) {

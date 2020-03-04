@@ -5,7 +5,7 @@ export const useTabs = (dafaultTab: string) => {
   const [tab, setTab] = useState(dafaultTab);
 
   useEffect(() => {
-    extension.storage.local.get('currentTab', (res: any) => {
+    extension.storage.local.get('currentTab', (res: { currentTab: string }) => {
       if (res.currentTab) setTab(res.currentTab);
     });
   }, []);
@@ -14,5 +14,5 @@ export const useTabs = (dafaultTab: string) => {
     extension.storage.local.set({ currentTab: tab });
   }, [tab]);
 
-  return [tab, setTab];
+  return { tab, setTab };
 };

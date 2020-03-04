@@ -10,13 +10,16 @@ export const useText = () => {
 
   useEffect(() => {
     if (tab === 'text') {
-      extension.storage.local.get('selectedText', (res: any) => {
-        if (res.selectedText) {
-          setText(res.selectedText);
-        } else {
-          setError('First select the text to be encoded');
+      extension.storage.local.get(
+        'selectedText',
+        (res: { selectedText: string }) => {
+          if (res.selectedText) {
+            setText(res.selectedText);
+          } else {
+            setError('First select the text to be encoded');
+          }
         }
-      });
+      );
     }
   }, [tab]);
 
