@@ -9,11 +9,16 @@ interface Props {
 }
 
 export const StateContext = React.createContext<{
-  error?: string;
-  setError?: React.Dispatch<React.SetStateAction<string>>;
-  tab?: string;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  tab: string;
   setTab: React.Dispatch<React.SetStateAction<string>>;
-}>(null);
+}>({
+  error: '',
+  setError: () => null,
+  tab: '',
+  setTab: () => null
+});
 
 export const StateProvider = ({ children }: Props) => {
   const [error, setError] = useState('');
