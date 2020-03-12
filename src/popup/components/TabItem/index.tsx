@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 
 import './TabItem.css';
 
@@ -10,7 +10,13 @@ interface Props {
   title: string;
 }
 
-const TabItem = ({ value, name, checked, onChange, title }: Props) => (
+const TabItem: FunctionComponent<Props> = ({
+  value,
+  name,
+  checked,
+  onChange,
+  title
+}) => (
   <div className="tab-item">
     <input
       type="radio"

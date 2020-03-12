@@ -1,14 +1,8 @@
-import React from 'react';
-
-import { Children } from '../../types/Children';
+import React, { FunctionComponent } from 'react';
 
 import './TabBar.css';
 
-interface Props {
-  children: Children;
-}
-
-const TabBar = ({ children }: Props) => (
+const TabBar: FunctionComponent = ({ children }) => (
   <nav className="tab-navigation">{children}</nav>
 );
 

@@ -1,15 +1,12 @@
-import React from 'react';
-
-import { Children } from '../../types/Children';
+import React, { FunctionComponent } from 'react';
 
 import './Details.css';
 
 interface Props {
   summary: string;
-  children: Children;
 }
 
-const Details = ({ summary, children }: Props) => (
+const Details: FunctionComponent<Props> = ({ summary, children }) => (
   <details>
     <summary>{summary}</summary>
 

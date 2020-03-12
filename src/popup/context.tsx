@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 
 import { useTabs } from './hooks/useTabs';
-
-import { Children } from './types/Children';
-
-interface Props {
-  children: Children;
-}
 
 export const StateContext = React.createContext<{
   error: string;
@@ -20,7 +14,7 @@ export const StateContext = React.createContext<{
   setTab: () => null
 });
 
-export const StateProvider = ({ children }: Props) => {
+export const StateProvider: FunctionComponent = ({ children }) => {
   const [error, setError] = useState('');
 
   const { tab, setTab } = useTabs('url');

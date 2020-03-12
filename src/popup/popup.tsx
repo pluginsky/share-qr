@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  FunctionComponent
+} from 'react';
 import { useQrEncode } from 'react-qr-hooks';
 
 import TabBar from './components/TabBar';
@@ -16,7 +21,7 @@ import { StateContext } from './context';
 
 import './popup.css';
 
-export const Popup = () => {
+export const Popup: FunctionComponent = () => {
   const { error, tab, setTab } = useContext(StateContext);
 
   const { url } = useUrl();
