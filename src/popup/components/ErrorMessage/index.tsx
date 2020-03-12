@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 import './ErrorMessage.css';
 
@@ -6,7 +6,7 @@ interface Props {
   message: string;
 }
 
-const ErrorMessage: FunctionComponent<Props> = ({ message }) => (
+const ErrorMessage: React.FC<Props> = ({ message }) => (
   <p className="error-message">{message}</p>
 );
 

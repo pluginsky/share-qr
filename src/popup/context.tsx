@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState } from 'react';
 
 import { useTabs } from './hooks/useTabs';
 
@@ -14,7 +14,7 @@ export const StateContext = React.createContext<{
   setTab: () => null
 });
 
-export const StateProvider: FunctionComponent = ({ children }) => {
+export const StateProvider: React.FC = ({ children }) => {
   const [error, setError] = useState('');
 
   const { tab, setTab } = useTabs('url');

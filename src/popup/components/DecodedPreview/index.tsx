@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 import { trimText } from '../../helpers/trimText';
 
@@ -8,7 +8,7 @@ interface Props {
   text: string;
 }
 
-const DecodedPreview: FunctionComponent<Props> = ({ text }) => (
+const DecodedPreview: React.FC<Props> = ({ text }) => (
   <p>
     {trimText(text, 1000)}
     <span className="out-of-limit">{text.slice(1000)}</span>

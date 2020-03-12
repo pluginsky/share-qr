@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import './TabItem.css';
 
@@ -10,7 +10,7 @@ interface Props {
   title: string;
 }
 
-const TabItem: FunctionComponent<Props> = ({
+const TabItem: React.FC<Props> = ({
   value,
   name,
   checked,
