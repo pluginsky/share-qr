@@ -11,7 +11,7 @@ export const StateContext = React.createContext<{
   error: '',
   setError: () => null,
   tab: '',
-  setTab: () => null
+  setTab: () => null,
 });
 
 export const StateProvider: React.FC = ({ children }) => {

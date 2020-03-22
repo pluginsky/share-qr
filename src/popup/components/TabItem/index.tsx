@@ -15,7 +15,7 @@ const TabItem: React.FC<Props> = ({
   name,
   checked,
   onChange,
-  title
+  title,
 }) => (
   <div className="tab-item">
     <input

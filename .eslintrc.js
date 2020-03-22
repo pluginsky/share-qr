@@ -4,16 +4,16 @@ module.exports = {
   plugins: ['prettier'],
   env: {
     browser: true,
-    node: true
+    node: true,
   },
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
-      module: true
-    }
+      module: true,
+    },
   },
   rules: {
-    'no-unused-vars': ['off']
-  }
+    'no-unused-vars': ['off'],
+  },
 };

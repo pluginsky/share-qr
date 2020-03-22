@@ -7,14 +7,14 @@ extension.runtime.onStartup.addListener(() => {
 extension.contextMenus.create({
   title: 'Share as QR code',
   id: 'share-as-qr-code',
-  contexts: ['selection']
+  contexts: ['selection'],
 });
 
 extension.contextMenus.onClicked.addListener((info: any) => {
   if (info.menuItemId === 'share-as-qr-code') {
     extension.storage.local.set({
       selectedText: info.selectionText,
-      currentTab: 'text'
+      currentTab: 'text',
     });
 
     extension.browserAction.openPopup();

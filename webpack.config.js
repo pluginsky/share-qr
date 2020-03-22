@@ -6,26 +6,26 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     background: './src/background.ts',
-    popup: './src/popup/index.tsx'
+    popup: './src/popup/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
-    ]
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+    ],
   },
   plugins: [
     new CopyPlugin([
       'src/manifest.json',
       'src/popup/popup.html',
-      { from: 'src/icons', to: 'icons' }
-    ])
-  ]
+      { from: 'src/icons', to: 'icons' },
+    ]),
+  ],
 };

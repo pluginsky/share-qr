@@ -32,7 +32,7 @@ export const Popup: React.FC = () => {
   const trimmed = trimText(decoded, 1000);
 
   const encoded = useQrEncode(trimmed, {
-    width: 360
+    width: 360,
   });
 
   return (
@@ -43,7 +43,7 @@ export const Popup: React.FC = () => {
             name="tab"
             value="url"
             checked={tab === 'url'}
-            onChange={e => setTab(e.target.value)}
+            onChange={(e) => setTab(e.target.value)}
             title="Current URL"
           />
 
@@ -51,7 +51,7 @@ export const Popup: React.FC = () => {
             name="tab"
             value="text"
             checked={tab === 'text'}
-            onChange={e => setTab(e.target.value)}
+            onChange={(e) => setTab(e.target.value)}
             title="Selected Text"
           />
         </TabBar>
