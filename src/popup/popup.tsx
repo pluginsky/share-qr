@@ -14,6 +14,8 @@ import { useText } from './hooks/useText';
 
 import { StateContext } from './context';
 
+import { Tabs } from './enums/Tabs';
+
 import './popup.css';
 
 export const Popup: React.FC = () => {
@@ -26,7 +28,7 @@ export const Popup: React.FC = () => {
   const [decoded, setDecoded] = useState('');
 
   useEffect(() => {
-    setDecoded(tab === 'url' ? url : text);
+    setDecoded(tab === Tabs.Url ? url : text);
   }, [tab, url, text]);
 
   const trimmed = trimText(decoded, 1000);
@@ -42,7 +44,7 @@ export const Popup: React.FC = () => {
           <TabItem
             name="tab"
             value="url"
-            checked={tab === 'url'}
+            checked={tab === Tabs.Url}
             onChange={(e) => setTab(e.target.value)}
             title="Current URL"
           />
@@ -50,7 +52,7 @@ export const Popup: React.FC = () => {
           <TabItem
             name="tab"
             value="text"
-            checked={tab === 'text'}
+            checked={tab === Tabs.Text}
             onChange={(e) => setTab(e.target.value)}
             title="Selected Text"
           />
@@ -58,11 +60,11 @@ export const Popup: React.FC = () => {
       </header>
 
       <main>
-        {((tab === 'url' && url) || (tab === 'text' && text)) && (
+        {((tab === Tabs.Url && url) || (tab === Tabs.Text && text)) && (
           <>
             <img src={encoded} alt={trimmed} />
 
-            <Details summary={`Encoded ${tab === 'url' ? 'URL' : 'Text'}`}>
+            <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
               <DecodedPreview text={decoded} />
             </Details>
           </>
