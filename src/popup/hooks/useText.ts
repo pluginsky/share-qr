@@ -10,6 +10,16 @@ export const useText = () => {
 
   const { tab, setError } = useContext(StateContext);
 
+  const clearText = () => {
+    setText('');
+
+    extension.storage.local.set({
+      selectedText: '',
+    });
+
+    setError('First select the text to be encoded');
+  };
+
   useEffect(() => {
     if (tab === Tabs.Text) {
       extension.storage.local.get(
@@ -25,5 +35,5 @@ export const useText = () => {
     }
   }, [tab]);
 
-  return { text };
+  return { text, clearText };
 };

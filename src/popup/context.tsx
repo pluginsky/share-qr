@@ -17,7 +17,7 @@ export const StateContext = React.createContext<{
 export const StateProvider: React.FC = ({ children }) => {
   const [error, setError] = useState('');
 
-  const { tab, setTab } = useTabs('url');
+  const { tab, setTab } = useTabs('');
 
   return (
     <StateContext.Provider value={{ error, setError, tab, setTab }}>
