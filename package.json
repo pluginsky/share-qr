@@ -1,6 +1,6 @@
 {
   "name": "share-qr",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Share selected text or page URL as QR code",
   "author": "Jakub Biesiada",
   "license": "MIT",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/qrcode": "^1.3.4",
-    "@types/react": "^16.9.25",
+    "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.5",
     "@typescript-eslint/parser": "^2.25.0",
     "copy-webpack-plugin": "^5.1.1",
@@ -29,7 +29,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "extensionizer": "^1.0.1",
     "husky": "^4.2.3",
-    "lint-staged": "^10.0.9",
+    "lint-staged": "^10.0.10",
     "prettier": "^2.0.2",
     "style-loader": "^1.1.3",
     "ts-loader": "^6.2.2",

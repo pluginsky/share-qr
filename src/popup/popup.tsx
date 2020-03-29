@@ -23,7 +23,7 @@ export const Popup: React.FC = () => {
 
   const { url } = useUrl();
 
-  const { text } = useText();
+  const { text, clearText } = useText();
 
   const [decoded, setDecoded] = useState('');
 
@@ -64,9 +64,17 @@ export const Popup: React.FC = () => {
           <>
             <img src={encoded} alt={trimmed} />
 
-            <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
-              <DecodedPreview text={decoded} />
-            </Details>
+            <div>
+              {tab === Tabs.Text && (
+                <button className="clear" onClick={clearText}>
+                  Clear
+                </button>
+              )}
+
+              <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
+                <DecodedPreview text={decoded} />
+              </Details>
+            </div>
           </>
         )}
 
