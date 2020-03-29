@@ -21,6 +21,34 @@ export const useText = () => {
   };
 
   useEffect(() => {
+    window.addEventListener('paste', (e: any) => {
+      setText(e.clipboardData.getData('text'));
+
+      extension.storage.local.set({
+        selectedText: e.clipboardData.getData('text'),
+      });
+
+      setError('');
+    });
+
+    window.addEventListener('copy', (e: any) => {
+      e.clipboardData.setData('text/plain', text);
+    });
+
+    window.addEventListener('cut', (e: any) => {
+      e.clipboardData.setData('text/plain', text);
+
+      setText('');
+
+      extension.storage.local.set({
+        selectedText: '',
+      });
+
+      setError('First select the text to be encoded');
+    });
+  }, []);
+
+  useEffect(() => {
     if (tab === Tabs.Text) {
       extension.storage.local.get(
         'selectedText',

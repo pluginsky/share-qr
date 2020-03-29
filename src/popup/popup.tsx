@@ -64,11 +64,17 @@ export const Popup: React.FC = () => {
           <>
             <img src={encoded} alt={trimmed} />
 
-            <button onClick={clearText}>x</button>
+            <div>
+              {tab === Tabs.Text && (
+                <button className="clear" onClick={clearText}>
+                  Clear
+                </button>
+              )}
 
-            <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
-              <DecodedPreview text={decoded} />
-            </Details>
+              <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
+                <DecodedPreview text={decoded} />
+              </Details>
+            </div>
           </>
         )}
 
