@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Details.css';
+import './Details.scss';
 
 interface Props {
   summary: string;

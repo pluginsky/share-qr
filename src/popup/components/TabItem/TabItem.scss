@@ -1,0 +1,64 @@
+.tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  height: 26px;
+
+  label {
+    z-index: 10;
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 200ms ease, transform 200ms ease;
+    position: relative;
+    height: 22px;
+    line-height: 2.2rem;
+    margin: 2px;
+    flex: 1;
+  }
+
+  input {
+    display: none;
+
+    & + label::before {
+      content: "";
+      left: 0;
+      z-index: -1;
+      border-radius: 6px;
+      width: 100%;
+      background-color: #fff0;
+      transition: background-color 200ms ease;
+      position: absolute;
+      height: 22px;
+      top: 0;
+    }
+
+    &:not(:checked) + label:active {
+      opacity: 0.5;
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          background-color: #fff;
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+
+  &:first-of-type::after {
+    content: "";
+    background-color: #ddd;
+    position: absolute;
+    height: 16px;
+    right: -1px;
+    width: 2px;
+  }
+}

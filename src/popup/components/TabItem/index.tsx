@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import './TabItem.css';
+import './TabItem.scss';
 
 interface Props {
   value: string;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { trimText } from '../../helpers/trimText';
 
-import './DecodedPreview.css';
+import './DecodedPreview.scss';
 
 interface Props {
   text: string;

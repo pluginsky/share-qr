@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './TabBar.css';
+import './TabBar.scss';
 
 const TabBar: React.FC = ({ children }) => (
   <nav className="tab-navigation">{children}</nav>

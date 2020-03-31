@@ -16,7 +16,7 @@ import { StateContext } from './context';
 
 import { Tabs } from './enums/Tabs';
 
-import './popup.css';
+import './popup.scss';
 
 export const Popup: React.FC = () => {
   const { error, tab, setTab } = useContext(StateContext);

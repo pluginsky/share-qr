@@ -17,8 +17,5 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "options_ui": {
-    "page": "options.html"
-  },
   "permissions": ["contextMenus", "storage", "tabs"]
 }
