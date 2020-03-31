@@ -48,6 +48,12 @@ export const useText = () => {
         setError('First select the text to be encoded');
       });
     }
+
+    return () => {
+      window.removeEventListener('paste', null);
+      window.removeEventListener('copy', null);
+      window.removeEventListener('cut', null);
+    };
   }, [tab]);
 
   useEffect(() => {
