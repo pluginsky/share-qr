@@ -18,24 +18,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-}
-
 canvas {
   height: 360px;
 }
 
-header {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
+.popup {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
 
-main {
-  overflow: auto;
-  flex: 1;
+  &__header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__main {
+    overflow: auto;
+    flex: 1;
+  }
 }
 
 .clear {

@@ -38,8 +38,8 @@ export const Popup: React.FC = () => {
   });
 
   return (
-    <div className="container">
-      <header>
+    <div className="popup">
+      <header className="popup__header">
         <TabBar>
           <TabItem
             name="tab"
@@ -59,7 +59,7 @@ export const Popup: React.FC = () => {
         </TabBar>
       </header>
 
-      <main>
+      <main className="popup__main">
         {((tab === Tabs.Url && url) || (tab === Tabs.Text && text)) && (
           <>
             <img src={encoded} alt={trimmed} />
