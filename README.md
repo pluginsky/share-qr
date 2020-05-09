@@ -14,5 +14,10 @@ git clone https://github.com/JB1905/share-qr.git
 cd share-qr
 ```
 
+## Build with
+- React
+- TypeScript
+- SCSS
+
 ## License
 This project is licensed under the MIT License © 2020-present Jakub Biesiada

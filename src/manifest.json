@@ -2,7 +2,7 @@
   "name": "ShareQR",
   "description": "Share selected text or page URL as QR code",
   "manifest_version": 2,
-  "version": "3.0.0",
+  "version": "4.0.0",
   "author": "Jakub Biesiada",
   "homepage_url": "https://github.com/JB1905/share-qr",
   "icons": {
@@ -16,6 +16,9 @@
   },
   "background": {
     "scripts": ["background.js"]
+  },
+  "options_ui": {
+    "page": "options.html"
   },
   "permissions": ["contextMenus", "storage", "tabs"]
 }
