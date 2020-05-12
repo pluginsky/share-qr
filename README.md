@@ -15,9 +15,9 @@ cd share-qr
 ```
 
 ## Build with
-- React
-- TypeScript
-- SCSS
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SCSS](https://sass-lang.com/)
 
 ## License
 This project is licensed under the MIT License © 2020-present Jakub Biesiada
