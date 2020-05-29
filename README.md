@@ -5,12 +5,12 @@ Share selected text or page URL as QR code
 
 ## Setup
 ##### 1. Clone repo
-```
+```sh
 git clone https://github.com/JB1905/share-qr.git
 ```
 
 ##### 2. Go to directory
-```
+```sh
 cd share-qr
 ```
 

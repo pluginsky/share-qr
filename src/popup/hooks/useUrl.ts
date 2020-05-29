@@ -5,15 +5,18 @@ import { supportedProtocols } from '../constants/supportedProtocols';
 
 import { StateContext } from '../context';
 
-import { Tabs } from '../enums/Tabs';
+import { Tab } from '../../shared/enums/Tab';
 
 export const useUrl = () => {
   const [url, setUrl] = useState('');
 
   const { setError, tab } = useContext(StateContext);
 
+  // console.log(tab);
+
   useEffect(() => {
-    if (tab === Tabs.Url) {
+    if (tab === Tab.Url) {
+      // if (tab === Tab.Url) {
       extension.tabs.query(
         { currentWindow: true, active: true },
         (res: { url: string }) => {

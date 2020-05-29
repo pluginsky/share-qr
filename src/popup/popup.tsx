@@ -1,82 +1,59 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useQrEncode } from 'react-qr-hooks';
+import React, { useContext, Suspense, lazy } from 'react';
 
-import TabBar from './components/TabBar';
-import TabItem from './components/TabItem';
-import Details from './components/Details';
+import Tabs from './components/Tabs';
 import ErrorMessage from './components/ErrorMessage';
-import DecodedPreview from './components/DecodedPreview';
 
-import { trimText } from './helpers/trimText';
-
-import { useUrl } from './hooks/useUrl';
-import { useText } from './hooks/useText';
+import CodePreview from './containers/CodePreview';
 
 import { StateContext } from './context';
 
-import { Tabs } from './enums/Tabs';
+// import { useClipboard } from './hooks/useClipboard';
+
+import { Tab } from '../shared/enums/Tab';
 
 import './popup.scss';
 
+// const Url = lazy(() => import('./containers/Url'));
+// const Text = lazy(() => import('./containers/Text'));
+
 export const Popup: React.FC = () => {
-  const { error, tab, setTab } = useContext(StateContext);
+  const { error, tab } = useContext(StateContext);
 
-  const { url } = useUrl();
+  // const { url } = useUrl();
 
-  const { text, clearText } = useText();
+  // const { text } = useText();
 
-  const [decoded, setDecoded] = useState('');
+  // const x = useClipboard();
 
-  useEffect(() => {
-    setDecoded(tab === Tabs.Url ? url : text);
-  }, [tab, url, text]);
-
-  const trimmed = trimText(decoded, 1000);
-
-  const encoded = useQrEncode(trimmed, {
-    width: 360,
-  });
+  /* <Tabs items={Object.values(Tab)} /> */
 
   return (
     <div className="popup">
       <header className="popup__header">
-        <TabBar>
-          <TabItem
-            name="tab"
-            value="url"
-            checked={tab === Tabs.Url}
-            onChange={(e) => setTab(e.target.value)}
-            title="Current URL"
-          />
-
-          <TabItem
-            name="tab"
-            value="text"
-            checked={tab === Tabs.Text}
-            onChange={(e) => setTab(e.target.value)}
-            title="Selected Text"
-          />
-        </TabBar>
+        <Tabs items={['URL', 'Text', 'Saved']} />
       </header>
 
       <main className="popup__main">
-        {((tab === Tabs.Url && url) || (tab === Tabs.Text && text)) && (
-          <>
-            <img src={encoded} alt={trimmed} />
+        <CodePreview />
 
-            <div>
-              {tab === Tabs.Text && (
-                <button className="clear" onClick={clearText}>
-                  Clear
-                </button>
-              )}
+        {/* <Suspense fallback="loading">
+          {() => {
+            switch (tab) {
+              case Tab.Url:
+                return <Url />;
 
-              <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
-                <DecodedPreview text={decoded} />
-              </Details>
-            </div>
-          </>
-        )}
+              case Tab.Text:
+                return <Text />;
+
+              case Tab.Saved:
+                return <p>aa</p>;
+            }
+          }}
+        </Suspense> */}
+
+        {/* <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
+          <DecodedPreview text={decoded} />
+        </Details> */}
 
         {error && <ErrorMessage message={error} />}
       </main>

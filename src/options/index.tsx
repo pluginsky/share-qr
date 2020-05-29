@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Popup } from './popup';
-
-import { StateProvider } from './context';
+import { Options } from './options';
 
 ReactDOM.render(
   <React.StrictMode>
-    <StateProvider>
-      <Popup />
-    </StateProvider>
+    <Options />
   </React.StrictMode>,
   document.getElementById('root')
 );
