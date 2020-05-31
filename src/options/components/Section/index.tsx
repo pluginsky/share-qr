@@ -3,7 +3,7 @@ import React from 'react';
 import './Section.scss';
 
 interface Props {
-  name: string;
+  readonly name: string;
 }
 
 export const Section: React.FC<Props> = ({ children, name }) => (

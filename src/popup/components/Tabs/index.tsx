@@ -5,7 +5,7 @@ import { StateContext } from '../../context';
 import './Tabs.scss';
 
 interface Props {
-  items: string[];
+  readonly items: string[];
 }
 
 const Tabs: React.FC<Props> = ({ items }) => {

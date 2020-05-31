@@ -3,7 +3,7 @@ import React, { HTMLProps } from 'react';
 import './Option.scss';
 
 interface Props extends HTMLProps<HTMLInputElement> {
-  title: string;
+  readonly title: string;
 }
 
 export const Option: React.FC<Props> = ({ title, ...props }) => (
