@@ -1,61 +1,72 @@
-import React, { useContext, Suspense, lazy } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 
 import Tabs from './components/Tabs';
-import ErrorMessage from './components/ErrorMessage';
 
-import CodePreview from './containers/CodePreview';
-
-import { StateContext } from './context';
-
-// import { useClipboard } from './hooks/useClipboard';
+import { useTabs } from './hooks/useTabs';
+import { useText } from './hooks/useText';
+import { useUrl } from './hooks/useUrl';
 
 import { Tab } from '../shared/enums/Tab';
 
 import './popup.scss';
 
-// const Url = lazy(() => import('./containers/Url'));
-// const Text = lazy(() => import('./containers/Text'));
+const CodePreview = lazy(() => import('./components/CodePreview'));
+const Details = lazy(() => import('./components/Details'));
+const ErrorMessage = lazy(() => import('./components/ErrorMessage'));
 
 export const Popup: React.FC = () => {
-  const { error, tab } = useContext(StateContext);
+  const [decoded, setDecoded] = useState('');
 
-  // const { url } = useUrl();
+  const [message, setMessage] = useState('');
 
-  // const { text } = useText();
+  const { tab } = useTabs();
 
-  // const x = useClipboard();
+  const { text, clearText } = useText();
 
-  /* <Tabs items={Object.values(Tab)} /> */
+  const { url } = useUrl();
+
+  useEffect(() => {
+    if (tab) {
+      setDecoded(tab === Tab.Text ? text : url);
+
+      // if (tab === Tab.Text && !text) {
+      //   setMessage('First select the text to be encoded');
+      // } else if (tab === Tab.Url && !url) {
+      //   // setMessage(
+      //   //   `Protocol ${currentPageProtocol.toUpperCase()} is not supported`
+      //   // );
+      // }
+    }
+  }, [tab, text, url]);
+
+  const trimmed = decoded.substr(0, 1000);
 
   return (
     <div className="popup">
       <header className="popup__header">
-        <Tabs items={['URL', 'Text', 'Saved']} />
+        <Tabs items={Object.values(Tab)} />
       </header>
 
       <main className="popup__main">
-        <CodePreview />
+        <Suspense fallback="Loading...">
+          {decoded ? (
+            <>
+              <CodePreview decoded={trimmed} />
 
-        {/* <Suspense fallback="loading">
-          {() => {
-            switch (tab) {
-              case Tab.Url:
-                return <Url />;
+              <div className="popup__details">
+                {tab === Tab.Text && (
+                  <button className="clear" onClick={clearText}>
+                    Clear
+                  </button>
+                )}
 
-              case Tab.Text:
-                return <Text />;
-
-              case Tab.Saved:
-                return <p>aa</p>;
-            }
-          }}
-        </Suspense> */}
-
-        {/* <Details summary={`Encoded ${tab === Tabs.Url ? 'URL' : 'Text'}`}>
-          <DecodedPreview text={decoded} />
-        </Details> */}
-
-        {error && <ErrorMessage message={error} />}
+                <Details summary={`Decoded ${tab}`}>{decoded}</Details>
+              </div>
+            </>
+          ) : (
+            <ErrorMessage message={message} />
+          )}
+        </Suspense>
       </main>
     </div>
   );

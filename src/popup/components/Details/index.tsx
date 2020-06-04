@@ -10,7 +10,7 @@ const Details: React.FC<Props> = ({ summary, children }) => (
   <details>
     <summary>{summary}</summary>
 
-    {children}
+    <p>{children}</p>
   </details>
 );
 

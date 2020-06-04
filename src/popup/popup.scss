@@ -19,6 +19,10 @@ canvas {
     overflow: auto;
     flex: 1;
   }
+
+  &__details {
+    position: relative;
+  }
 }
 
 .clear {

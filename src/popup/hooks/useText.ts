@@ -1,43 +1,34 @@
-import { useState, useEffect, useContext } from 'react';
-import extension from 'extensionizer';
+import { useContext, useEffect } from 'react';
 
 import { StateContext } from '../context';
 
-import { Tab } from '../../shared/enums/Tab';
-import { StoreKey } from '../../shared/enums/StoreKey';
+import { CLEAR_TEXT, SET_TEXT } from '../store/actions';
 
 export const useText = () => {
-  const [text, setText] = useState('');
+  const [{ selectedText: text }, dispatch] = useContext(StateContext);
 
-  const { tab, setError } = useContext(StateContext);
+  const clearText = () => dispatch({ type: CLEAR_TEXT });
 
-  // const clearText = () => {
-  //   setText('');
-
-  //   extension.storage.local.set({
-  //     [StoreKey.SelectedText]: '',
-  //   });
-
-  //   setError('First select the text to be encoded');
-  // };
+  const setText = (value: string) => {
+    dispatch({ type: SET_TEXT, payload: value });
+  };
 
   useEffect(() => {
-    // if (tab === Tab.Text) {
-    extension.storage.local.get(
-      StoreKey.SelectedText,
-      (res: { [StoreKey.SelectedText]: string }) => {
-        if (res.selectedText) {
-          setText(res.selectedText);
-        } else {
-          setError('First select the text to be encoded');
-        }
-      }
-    );
-    // }
-  }, [tab]);
+    window.addEventListener('paste', (e: ClipboardEvent) => {
+      // if () // TODO switch to text tab if is not active
+      setText(e.clipboardData.getData('text'));
+    });
 
-  return {
-    text,
-    // clearText,
-  };
+    window.addEventListener('copy', (e: ClipboardEvent) => {
+      // e.clipboardData.setData('text/plain', text); // TODO copy decoded value
+    });
+
+    window.addEventListener('cut', (e: ClipboardEvent) => {
+      // e.clipboardData.setData('text/plain', text);
+      //  TODO cut decoded value
+      // clearText();
+    });
+  }, []);
+
+  return { text, clearText };
 };

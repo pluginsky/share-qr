@@ -1,24 +1,17 @@
-import { useState, useEffect } from 'react';
-import extension from 'extensionizer';
+import { useContext } from 'react';
+
+import { StateContext } from '../context';
+
+import { SET_TAB } from '../store/actions';
 
 import { Tab } from '../../shared/enums/Tab';
-import { StoreKey } from '../../shared/enums/StoreKey';
 
-export const useTabs = (dafaultTab: string) => {
-  const [tab, setTab] = useState(dafaultTab);
+export const useTabs = () => {
+  const [{ currentTab: tab }, dispatch] = useContext(StateContext);
 
-  useEffect(() => {
-    extension.storage.local.get(
-      StoreKey.CurrentTab,
-      (res: { [StoreKey.CurrentTab]: string }) => {
-        setTab(res.currentTab ?? Tab.Url);
-      }
-    );
-  }, []);
-
-  useEffect(() => {
-    extension.storage.local.set({ [StoreKey.CurrentTab]: tab });
-  }, [tab]);
+  const setTab = (id: Tab) => {
+    dispatch({ type: SET_TAB, payload: id });
+  };
 
   return { tab, setTab };
 };
