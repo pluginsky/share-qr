@@ -38,15 +38,16 @@ npm run watch
 
 ### Chrome
 
-- Open the Extension Management page by navigating to `chrome://extensions`.
-- Enable Developer Mode by clicking the toggle switch next to Developer mode.
-- Click the `LOAD UNPACKED` button and select **dist** in the extension directory.
+- open the Extension Management page by navigating to `chrome://extensions`
+- enable Developer Mode by clicking the toggle switch next to Developer mode
+- click the `LOAD UNPACKED` button and select **dist** in the extension directory
 
 ### Firefox
 
-### Edge
-
-### Opera
+- enter `about:debugging` in the URL bar
+- click `This Firefox`
+- click `Load Temporary Add-on`
+- open **dist** in the extension’s directory and select any file inside
 
 ## Build with
 
