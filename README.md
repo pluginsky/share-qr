@@ -17,6 +17,24 @@ git clone https://github.com/JB1905/share-qr.git
 cd share-qr
 ```
 
+##### 3. Install dependencies
+
+```sh
+yarn
+
+# Or, use npm
+npm i
+```
+
+5. Run
+
+```sh
+yarn watch
+
+# Or, use npm
+npm run watch
+```
+
 ### Chrome
 
 - Open the Extension Management page by navigating to `chrome://extensions`.
