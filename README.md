@@ -40,14 +40,14 @@ npm run watch
 
 - open the Extension Management page by navigating to `chrome://extensions`
 - enable Developer Mode by clicking the toggle switch next to Developer mode
-- click the `LOAD UNPACKED` button and select **dist** in the extension directory
+- click the `LOAD UNPACKED` button and select the **dist** in the extension directory
 
 ### Firefox
 
 - enter `about:debugging` in the URL bar
 - click `This Firefox`
 - click `Load Temporary Add-on`
-- open **dist** in the extension’s directory and select any file inside
+- open the **dist** in the extension’s directory and select any file inside
 
 ## Build with
 

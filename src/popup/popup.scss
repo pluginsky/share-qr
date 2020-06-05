@@ -26,20 +26,24 @@ canvas {
 
   &__details {
     position: relative;
-  }
-}
 
-.clear {
-  height: 26px;
-  font-size: 1.2rem;
-  border-radius: 13px;
-  background-color: #eee;
-  position: absolute;
-  font-weight: 600;
-  line-height: 20px;
-  right: 20px;
-  margin-top: 5px;
-  cursor: pointer;
-  border: none;
-  padding: 0 15px;
+    .clear {
+      height: 26px;
+      font-size: 1.2rem;
+      border-radius: 13px;
+      background-color: #eee;
+      position: absolute;
+      font-weight: 600;
+      line-height: 20px;
+      right: 20px;
+      margin-top: 5px;
+      cursor: pointer;
+      border: none;
+      padding: 0 15px;
+    }
+
+    .out-of-limit {
+      color: #e62c2c;
+    }
+  }
 }

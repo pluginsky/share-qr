@@ -63,7 +63,9 @@ export const Popup: React.FC = () => {
     }
   }, [tab, text, url]);
 
-  const trimmed = decoded.substr(0, 1000);
+  const LIMIT = 1000;
+
+  const trimmed = decoded.substr(0, LIMIT);
 
   return (
     <div className="popup">
@@ -88,7 +90,10 @@ export const Popup: React.FC = () => {
                   </button>
                 )}
 
-                <Details summary={`Decoded ${tab}`}>{decoded}</Details>
+                <Details summary={`Decoded ${tab}`}>
+                  {trimmed}
+                  <span className="out-of-limit">{decoded.slice(LIMIT)}</span>
+                </Details>
               </div>
             </>
           ) : (
