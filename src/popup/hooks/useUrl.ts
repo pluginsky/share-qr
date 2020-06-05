@@ -3,18 +3,31 @@ import extension from 'extensionizer';
 
 import { supportedProtocols } from '../constants/supportedProtocols';
 
+interface TabQueryResult {
+  readonly url: string;
+}
+
 export const useUrl = () => {
   const [url, setUrl] = useState('');
 
-  useEffect(() => {
-    extension.tabs.query({ currentWindow: true, active: true }, (res: any) => {
-      const currentPageProtocol = res[0].url.split(':')[0];
+  const [unsupportedProtocol, setUnsupportedProtocol] = useState('');
 
-      if (supportedProtocols.includes(currentPageProtocol)) {
-        setUrl(res[0].url);
+  useEffect(() => {
+    extension.tabs.query(
+      { currentWindow: true, active: true },
+      (res: TabQueryResult[]) => {
+        const currentPageProtocol = res[0].url.split(':')[0];
+
+        if (supportedProtocols.includes(currentPageProtocol)) {
+          setUrl(res[0].url);
+
+          setUnsupportedProtocol('');
+        } else {
+          setUnsupportedProtocol(currentPageProtocol);
+        }
       }
-    });
+    );
   }, []);
 
-  return { url };
+  return { url, unsupportedProtocol };
 };

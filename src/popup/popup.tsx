@@ -23,7 +23,7 @@ export const Popup: React.FC = () => {
 
   const { text, setText, clearText } = useText();
 
-  const { url } = useUrl();
+  const { url, unsupportedProtocol } = useUrl();
 
   useEffect(() => {
     window.addEventListener('paste', (e: ClipboardEvent) => {
@@ -56,9 +56,9 @@ export const Popup: React.FC = () => {
       if (tab === Tab.Text && !text) {
         setMessage('First select the text to be encoded');
       } else if (tab === Tab.Url && !url) {
-        // setMessage(
-        //   `Protocol ${currentPageProtocol.toUpperCase()} is not supported`
-        // );
+        setMessage(
+          `Protocol ${unsupportedProtocol.toUpperCase()} is not supported`
+        );
       }
     }
   }, [tab, text, url]);
@@ -76,7 +76,7 @@ export const Popup: React.FC = () => {
       </header>
 
       <main className="popup__main">
-        <Suspense fallback="Loading...">
+        <Suspense fallback={<p className="popup__loader">Loading...</p>}>
           {decoded ? (
             <>
               <CodePreview decoded={trimmed} />
@@ -88,7 +88,6 @@ export const Popup: React.FC = () => {
                   </button>
                 )}
 
-                {/* TODO red trimmed text */}
                 <Details summary={`Decoded ${tab}`}>{decoded}</Details>
               </div>
             </>

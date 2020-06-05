@@ -9,13 +9,13 @@ import { stateReducer } from './store/reducers';
 import { INIT } from './store/actions';
 
 interface StoreResponse {
-  readonly [StoreKey.SelectedText]: string;
-  readonly [StoreKey.CurrentTab]: Tab;
+  [StoreKey.SelectedText]: string;
+  [StoreKey.CurrentTab]: Tab;
 }
 
 const initialState = {
   [StoreKey.SelectedText]: '',
-  [StoreKey.CurrentTab]: undefined, // Tab.Url
+  [StoreKey.CurrentTab]: undefined,
 };
 
 export const StateContext = React.createContext<[any, any]>([] as any);
@@ -27,9 +27,14 @@ export const StateProvider: React.FC = ({ children }) => {
     extension.storage.local.get(
       [StoreKey.SelectedText, StoreKey.CurrentTab],
       (res: StoreResponse) => {
-        if (Object.keys(res).length > 0) {
-          dispatch({ type: INIT, payload: res });
+        const data = res;
+
+        if (!data[StoreKey.CurrentTab]) {
+          data[StoreKey.SelectedText] = '';
+          data[StoreKey.CurrentTab] = Tab.Url;
         }
+
+        dispatch({ type: INIT, payload: data });
       }
     );
   }, []);
