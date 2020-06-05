@@ -41,6 +41,12 @@ export const Popup: React.FC = () => {
 
       setDecoded('');
     });
+
+    return () => {
+      window.removeEventListener('paste', null);
+      window.removeEventListener('copy', null);
+      window.removeEventListener('cut', null);
+    };
   }, []);
 
   useEffect(() => {
@@ -62,7 +68,11 @@ export const Popup: React.FC = () => {
   return (
     <div className="popup">
       <header className="popup__header">
-        <Tabs items={Object.values(Tab)} />
+        <Tabs
+          items={Object.values(Tab)}
+          onChange={(value) => setTab(value)}
+          active={tab}
+        />
       </header>
 
       <main className="popup__main">

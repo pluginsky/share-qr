@@ -14,6 +14,14 @@ git clone https://github.com/JB1905/share-qr.git
 cd share-qr
 ```
 
+### Chrome
+
+### Firefox
+
+### Edge
+
+### Opera
+
 ## Build with
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
