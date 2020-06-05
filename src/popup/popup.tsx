@@ -19,23 +19,41 @@ export const Popup: React.FC = () => {
 
   const [message, setMessage] = useState('');
 
-  const { tab } = useTabs();
+  const { tab, setTab } = useTabs();
 
-  const { text, clearText } = useText();
+  const { text, setText, clearText } = useText();
 
   const { url } = useUrl();
+
+  useEffect(() => {
+    window.addEventListener('paste', (e: ClipboardEvent) => {
+      setTab(Tab.Text);
+
+      setText(e.clipboardData.getData('text'));
+    });
+
+    window.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', decoded);
+    });
+
+    window.addEventListener('cut', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', decoded);
+
+      setDecoded('');
+    });
+  }, []);
 
   useEffect(() => {
     if (tab) {
       setDecoded(tab === Tab.Text ? text : url);
 
-      // if (tab === Tab.Text && !text) {
-      //   setMessage('First select the text to be encoded');
-      // } else if (tab === Tab.Url && !url) {
-      //   // setMessage(
-      //   //   `Protocol ${currentPageProtocol.toUpperCase()} is not supported`
-      //   // );
-      // }
+      if (tab === Tab.Text && !text) {
+        setMessage('First select the text to be encoded');
+      } else if (tab === Tab.Url && !url) {
+        // setMessage(
+        //   `Protocol ${currentPageProtocol.toUpperCase()} is not supported`
+        // );
+      }
     }
   }, [tab, text, url]);
 
@@ -60,6 +78,7 @@ export const Popup: React.FC = () => {
                   </button>
                 )}
 
+                {/* TODO red trimmed text */}
                 <Details summary={`Decoded ${tab}`}>{decoded}</Details>
               </div>
             </>

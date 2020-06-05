@@ -15,7 +15,7 @@ interface StoreResponse {
 
 const initialState = {
   [StoreKey.SelectedText]: '',
-  [StoreKey.CurrentTab]: null,
+  [StoreKey.CurrentTab]: Tab.Url,
 };
 
 export const StateContext = React.createContext<[any, any]>([] as any);
