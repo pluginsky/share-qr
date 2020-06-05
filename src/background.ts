@@ -27,6 +27,10 @@ extension.contextMenus.onClicked.addListener((info: Info) => {
       [StoreKey.CurrentTab]: Tab.Text,
     });
 
-    extension.browserAction.openPopup(() => null);
+    if (extension.browserAction.openPopup.length === 0) {
+      extension.browserAction.openPopup(() => null);
+    } else {
+      extension.browserAction.openPopup();
+    }
   }
 });
