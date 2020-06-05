@@ -26,7 +26,7 @@ yarn
 npm i
 ```
 
-5. Run
+##### 4. Run
 
 ```sh
 yarn watch
