@@ -8,7 +8,7 @@ import { stateReducer } from './store/reducers';
 
 import { INIT } from './store/actions';
 
-interface StoreResponse {
+interface PopupState {
   [StoreKey.SelectedText]: string;
   [StoreKey.CurrentTab]: Tab;
 }
@@ -18,7 +18,9 @@ const initialState = {
   [StoreKey.CurrentTab]: undefined,
 };
 
-export const StateContext = React.createContext<[any, any]>([] as any);
+export const StateContext = React.createContext<
+  [PopupState, React.Dispatch<any>]
+>([initialState, () => null]);
 
 export const StateProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
@@ -26,7 +28,7 @@ export const StateProvider: React.FC = ({ children }) => {
   useEffect(() => {
     extension.storage.local.get(
       [StoreKey.SelectedText, StoreKey.CurrentTab],
-      (res: StoreResponse) => {
+      (res: PopupState) => {
         const data = res;
 
         if (!data[StoreKey.CurrentTab]) {
