@@ -8,7 +8,7 @@ import { stateReducer } from './store/reducers';
 
 import { INIT } from './store/actions';
 
-interface PopupState {
+export interface PopupState {
   [StoreKey.SelectedText]: string;
   [StoreKey.CurrentTab]: Tab;
 }
