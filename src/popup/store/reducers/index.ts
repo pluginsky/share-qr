@@ -4,7 +4,7 @@ import { INIT, SET_TAB, CLEAR_TEXT, SET_TEXT } from '../actions';
 
 import { PopupState } from '../../interfaces';
 
-import { ActionTypes } from '../../types';
+import type { ActionTypes } from '../../types';
 
 export const stateReducer = (state: PopupState, action: ActionTypes) => {
   switch (action.type) {

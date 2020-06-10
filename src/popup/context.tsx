@@ -10,7 +10,7 @@ import { INIT } from './store/actions';
 
 import { PopupState } from './interfaces';
 
-import { ActionTypes } from './types';
+import type { ActionTypes } from './types';
 
 const initialState = {
   [StoreKey.SelectedText]: '',
