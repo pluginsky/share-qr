@@ -23,10 +23,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyPlugin([
-      'src/manifest.json',
-      'src/popup/popup.html',
-      { from: 'src/icons', to: 'icons' },
-    ]),
+    new CopyPlugin({
+      patterns: [
+        'src/manifest.json',
+        'src/popup/popup.html',
+        { from: 'src/icons', to: 'icons' },
+      ],
+    }),
   ],
 };
