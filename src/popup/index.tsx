@@ -5,6 +5,8 @@ import { Popup } from './popup';
 
 import { StateProvider } from './context';
 
+import './index.scss';
+
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
