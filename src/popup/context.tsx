@@ -1,26 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import extension from 'extensionizer';
 
-import { useTabs } from './hooks/useTabs';
+import { StoreKey } from '../shared/enums/StoreKey';
+import { Tab } from '../shared/enums/Tab';
 
-export const StateContext = React.createContext<{
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-  tab: string;
-  setTab: React.Dispatch<React.SetStateAction<string>>;
-}>({
-  error: '',
-  setError: () => null,
-  tab: '',
-  setTab: () => null,
-});
+import { stateReducer } from './store/reducers';
+
+import { INIT } from './store/actions';
+
+import { PopupState } from './interfaces';
+
+import { ActionTypes } from './types';
+
+const initialState = {
+  [StoreKey.SelectedText]: '',
+  [StoreKey.CurrentTab]: undefined,
+};
+
+export const StateContext = React.createContext<
+  [PopupState, React.Dispatch<ActionTypes>]
+>([initialState, () => null]);
 
 export const StateProvider: React.FC = ({ children }) => {
-  const [error, setError] = useState('');
+  const [state, dispatch] = useReducer(stateReducer, initialState);
 
-  const { tab, setTab } = useTabs('');
+  useEffect(() => {
+    extension.storage.local.get(
+      [StoreKey.SelectedText, StoreKey.CurrentTab],
+      (res: PopupState) => {
+        const data = res;
+
+        if (!data[StoreKey.CurrentTab]) {
+          data[StoreKey.SelectedText] = '';
+          data[StoreKey.CurrentTab] = Tab.Url;
+        }
+
+        dispatch({ type: INIT, payload: data });
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    extension.storage.local.set(state);
+  }, [state]);
 
   return (
-    <StateContext.Provider value={{ error, setError, tab, setTab }}>
+    <StateContext.Provider value={[state, dispatch]}>
       {children}
     </StateContext.Provider>
   );

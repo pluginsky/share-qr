@@ -1,0 +1,45 @@
+@import "../shared/reset.scss";
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  width: 360px;
+
+  &__header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__loader {
+    text-align: center;
+  }
+
+  &__main {
+    overflow: auto;
+    flex: 1;
+  }
+
+  &__details {
+    position: relative;
+
+    .clear {
+      height: 26px;
+      font-size: 1.2rem;
+      border-radius: 13px;
+      background-color: #eee;
+      position: absolute;
+      font-weight: 600;
+      line-height: 20px;
+      right: 20px;
+      margin-top: 5px;
+      cursor: pointer;
+      border: none;
+      padding: 0 15px;
+    }
+
+    .out-of-limit {
+      color: #e62c2c;
+    }
+  }
+}

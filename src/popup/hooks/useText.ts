@@ -1,69 +1,21 @@
-import { useState, useEffect, useContext } from 'react';
-import extension from 'extensionizer';
+import { useContext } from 'react';
 
 import { StateContext } from '../context';
 
-import { Tabs } from '../enums/Tabs';
+import { CLEAR_TEXT, SET_TEXT } from '../store/actions';
+
+import { StoreKey } from '../../shared/enums/StoreKey';
 
 export const useText = () => {
-  const [text, setText] = useState('');
+  const [{ [StoreKey.SelectedText]: text }, dispatch] = useContext(
+    StateContext
+  );
 
-  const { tab, setError } = useContext(StateContext);
-
-  const clearText = () => {
-    setText('');
-
-    extension.storage.local.set({
-      selectedText: '',
-    });
-
-    setError('First select the text to be encoded');
+  const setText = (value: string) => {
+    dispatch({ type: SET_TEXT, payload: value });
   };
 
-  useEffect(() => {
-    if (tab === Tabs.Text) {
-      window.addEventListener('paste', (e: ClipboardEvent) => {
-        setText(e.clipboardData.getData('text'));
+  const clearText = () => dispatch({ type: CLEAR_TEXT });
 
-        extension.storage.local.set({
-          selectedText: e.clipboardData.getData('text'),
-        });
-
-        setError('');
-      });
-
-      window.addEventListener('copy', (e: ClipboardEvent) => {
-        e.clipboardData.setData('text/plain', text);
-      });
-
-      window.addEventListener('cut', (e: ClipboardEvent) => {
-        e.clipboardData.setData('text/plain', text);
-
-        setText('');
-
-        extension.storage.local.set({
-          selectedText: '',
-        });
-
-        setError('First select the text to be encoded');
-      });
-    }
-  }, [tab]);
-
-  useEffect(() => {
-    if (tab === Tabs.Text) {
-      extension.storage.local.get(
-        'selectedText',
-        (res: { selectedText: string }) => {
-          if (res.selectedText) {
-            setText(res.selectedText);
-          } else {
-            setError('First select the text to be encoded');
-          }
-        }
-      );
-    }
-  }, [tab]);
-
-  return { text, clearText };
+  return { text, setText, clearText };
 };

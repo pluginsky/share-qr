@@ -6,8 +6,10 @@ import { Popup } from './popup';
 import { StateProvider } from './context';
 
 ReactDOM.render(
-  <StateProvider>
-    <Popup />
-  </StateProvider>,
+  <React.StrictMode>
+    <StateProvider>
+      <Popup />
+    </StateProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
