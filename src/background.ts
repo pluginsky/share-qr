@@ -27,10 +27,12 @@ extension.contextMenus.onClicked.addListener((info: Info) => {
       [StoreKey.CurrentTab]: Tab.Text,
     });
 
-    if (extension.browserAction.openPopup.length === 0) {
-      extension.browserAction.openPopup(() => null);
+    const openPopup = extension.browserAction.openPopup;
+
+    if (openPopup.length === 0) {
+      openPopup(() => null);
     } else {
-      extension.browserAction.openPopup();
+      openPopup();
     }
   }
 });
