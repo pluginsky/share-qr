@@ -8,10 +8,9 @@ import { stateReducer } from './store/reducers';
 
 import { INIT } from './store/actions';
 
-export interface PopupState {
-  [StoreKey.SelectedText]: string;
-  [StoreKey.CurrentTab]: Tab;
-}
+import { PopupState } from './interfaces';
+
+import { ActionTypes } from './types';
 
 const initialState = {
   [StoreKey.SelectedText]: '',
@@ -19,7 +18,7 @@ const initialState = {
 };
 
 export const StateContext = React.createContext<
-  [PopupState, React.Dispatch<any>]
+  [PopupState, React.Dispatch<ActionTypes>]
 >([initialState, () => null]);
 
 export const StateProvider: React.FC = ({ children }) => {

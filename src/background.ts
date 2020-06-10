@@ -1,7 +1,7 @@
 import extension from 'extensionizer';
 
-import { Tab } from './shared/enums/Tab';
 import { StoreKey } from './shared/enums/StoreKey';
+import { Tab } from './shared/enums/Tab';
 
 interface Info {
   readonly menuItemId: string;
