@@ -1,12 +1,30 @@
 .tab-navigation {
   width: 80%;
-  height: 26px;
+  // height: 32px;
+  // padding: 3px;
   background-color: #efefef;
   border-radius: 13px;
   display: flex;
   align-items: center;
   position: relative;
   margin: 0 auto;
+
+  &__selector {
+    position: absolute;
+    border-radius: 11px;
+    // width: 100%;
+    background-color: #fff;
+    transition: left 300ms ease, background-color 200ms ease;
+    position: absolute;
+    height: 22px;
+    top: 2px;
+    left: 2px;
+
+    &--active {
+      background-color: #fff;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    }
+  }
 
   &__item {
     flex: 1;
@@ -33,30 +51,12 @@
     input {
       display: none;
 
-      & + label::before {
-        content: "";
-        left: 0;
-        z-index: -1;
-        border-radius: 11px;
-        width: 100%;
-        background-color: #fff0;
-        transition: background-color 200ms ease;
-        position: absolute;
-        height: 22px;
-        top: 0;
-      }
-
-      &:not(:checked) + label:active {
+      &:not(:checked) {
         opacity: 0.5;
       }
 
       &:checked {
         + label {
-          &::before {
-            background-color: #fff;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
-          }
-
           &:active {
             transform: scale(0.95);
           }
