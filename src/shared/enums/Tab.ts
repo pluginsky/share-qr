@@ -1,4 +1,4 @@
 export enum Tab {
-  Url = 'URL',
-  Text = 'Text',
+  Url = 'url',
+  Text = 'text',
 }
