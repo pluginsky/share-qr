@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "ShareQR",
   "description": "__MSG_extensionDescription__",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "author": "Jakub Biesiada",
   "homepage_url": "https://github.com/JB1905/share-qr",
   "icons": {

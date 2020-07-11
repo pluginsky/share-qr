@@ -1,6 +1,6 @@
 {
   "name": "share-qr",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Share selected text or page URL as QR code",
   "author": "Jakub Biesiada",
   "license": "MIT",
