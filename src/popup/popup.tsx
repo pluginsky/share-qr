@@ -6,6 +6,8 @@ import { useTabs } from './hooks/useTabs';
 import { useText } from './hooks/useText';
 import { useUrl } from './hooks/useUrl';
 
+import { tabNames } from './constants/tabNames';
+
 import { t } from '../shared/helpers/translate';
 
 import { Tab } from '../shared/enums/Tab';
@@ -73,7 +75,7 @@ export const Popup: React.FC = () => {
     <div className="popup">
       <header className="popup__header">
         <Tabs
-          items={Object.values(Tab)}
+          items={tabNames}
           onChange={(value) => setTab(value)}
           active={tab}
         />
@@ -92,7 +94,7 @@ export const Popup: React.FC = () => {
                   </button>
                 )}
 
-                <Details summary={t('detailsSummary', tab)}>
+                <Details summary={t('detailsSummary', tabNames[tab])}>
                   {trimmed}
                   <span className="out-of-limit">{decoded.slice(LIMIT)}</span>
                 </Details>

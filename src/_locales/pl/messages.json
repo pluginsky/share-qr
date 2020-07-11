@@ -28,6 +28,12 @@
       }
     }
   },
+  "tabUrl": {
+    "message": "URL"
+  },
+  "tabText": {
+    "message": "Tekst"
+  },
   "contextMenuTitle": {
     "message": "Udostępnij jako kod QR"
   }

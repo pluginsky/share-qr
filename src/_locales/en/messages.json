@@ -28,6 +28,12 @@
       }
     }
   },
+  "tabUrl": {
+    "message": "URL"
+  },
+  "tabText": {
+    "message": "Text"
+  },
   "contextMenuTitle": {
     "message": "Share as QR code"
   }

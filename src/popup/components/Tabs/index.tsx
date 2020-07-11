@@ -5,25 +5,25 @@ import { Tab } from '../../../shared/enums/Tab';
 import './Tabs.scss';
 
 interface Props {
-  readonly items: string[];
+  readonly items: Record<Tab, string>;
   readonly active: Tab;
   onChange(value: Tab): void;
 }
 
 const Tabs: React.FC<Props> = ({ items, active, onChange }) => (
   <nav className="tab-navigation">
-    {items.map((item) => (
-      <div className="tab-navigation__item" key={item}>
+    {Object.entries(items).map(([key, value]) => (
+      <div className="tab-navigation__item" key={key}>
         <input
           name={name}
-          value={item}
+          value={key}
           type="radio"
-          id={item}
-          checked={active === item}
+          id={key}
+          checked={active === key}
           onChange={(e) => onChange(e.target.value as Tab)}
         />
 
-        <label htmlFor={item}>{item}</label>
+        <label htmlFor={key}>{value}</label>
       </div>
     ))}
   </nav>
