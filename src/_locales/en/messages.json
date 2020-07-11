@@ -1,0 +1,40 @@
+{
+  "extensionDescription": {
+    "message": "Share selected text or page URL as QR code",
+    "description": "Description of the extension."
+  },
+  "selectTextToEncode": {
+    "message": "First select the text to be encoded"
+  },
+  "protocolNotSupported": {
+    "message": "Protocol $PROTOCOL$ is not supported",
+    "placeholders": {
+      "protocol": {
+        "content": "$1"
+      }
+    }
+  },
+  "appLoading": {
+    "message": "Loading..."
+  },
+  "detailsClear": {
+    "message": "Clear"
+  },
+  "detailsSummary": {
+    "message": "Decoded $TAB$",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabUrl": {
+    "message": "URL"
+  },
+  "tabText": {
+    "message": "Text"
+  },
+  "contextMenuTitle": {
+    "message": "Share as QR code"
+  }
+}

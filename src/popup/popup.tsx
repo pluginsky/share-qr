@@ -6,6 +6,10 @@ import { useTabs } from './hooks/useTabs';
 import { useText } from './hooks/useText';
 import { useUrl } from './hooks/useUrl';
 
+import { tabNames } from './constants/tabNames';
+
+import { t } from '../shared/helpers/translate';
+
 import { Tab } from '../shared/enums/Tab';
 
 import './popup.scss';
@@ -54,10 +58,10 @@ export const Popup: React.FC = () => {
       setDecoded(tab === Tab.Text ? text : url);
 
       if (tab === Tab.Text && !text) {
-        setMessage('First select the text to be encoded');
+        setMessage(t('selectTextToEncode'));
       } else if (tab === Tab.Url && !url) {
         setMessage(
-          `Protocol ${unsupportedProtocol.toUpperCase()} is not supported`
+          t('protocolNotSupported', unsupportedProtocol.toUpperCase())
         );
       }
     }
@@ -71,14 +75,14 @@ export const Popup: React.FC = () => {
     <div className="popup">
       <header className="popup__header">
         <Tabs
-          items={Object.values(Tab)}
+          items={tabNames}
           onChange={(value) => setTab(value)}
           active={tab}
         />
       </header>
 
       <main className="popup__main">
-        <Suspense fallback={<p className="popup__loader">Loading...</p>}>
+        <Suspense fallback={<p className="popup__loader">{t('appLoading')}</p>}>
           {decoded ? (
             <>
               <CodePreview decoded={trimmed} />
@@ -86,11 +90,11 @@ export const Popup: React.FC = () => {
               <div className="popup__details">
                 {tab === Tab.Text && (
                   <button className="clear" onClick={clearText}>
-                    Clear
+                    {t('detailsClear')}
                   </button>
                 )}
 
-                <Details summary={`Decoded ${tab}`}>
+                <Details summary={t('detailsSummary', tabNames[tab])}>
                   {trimmed}
                   <span className="out-of-limit">{decoded.slice(LIMIT)}</span>
                 </Details>

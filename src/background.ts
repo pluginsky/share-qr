@@ -1,5 +1,7 @@
 import extension from 'extensionizer';
 
+import { t } from './shared/helpers/translate';
+
 import { StoreKey } from './shared/enums/StoreKey';
 import { Tab } from './shared/enums/Tab';
 
@@ -15,7 +17,7 @@ extension.runtime.onStartup.addListener(() => {
 });
 
 extension.contextMenus.create({
-  title: 'Share as QR code',
+  title: t('contextMenuTitle'),
   id: CONTEXT_MENU_ID,
   contexts: ['selection'],
 });
