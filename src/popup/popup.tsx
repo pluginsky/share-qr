@@ -18,6 +18,8 @@ const CodePreview = lazy(() => import('./components/CodePreview'));
 const Details = lazy(() => import('./components/Details'));
 const ErrorMessage = lazy(() => import('./components/ErrorMessage'));
 
+const LETTER_LIMIT = 1000;
+
 export const Popup: React.FC = () => {
   const [decoded, setDecoded] = useState('');
 
@@ -67,9 +69,7 @@ export const Popup: React.FC = () => {
     }
   }, [tab, text, url]);
 
-  const LIMIT = 1000;
-
-  const trimmed = decoded.substr(0, LIMIT);
+  const trimmed = decoded.substr(0, LETTER_LIMIT);
 
   return (
     <div className="popup">
@@ -96,7 +96,9 @@ export const Popup: React.FC = () => {
 
                 <Details summary={t('detailsSummary', tabNames[tab])}>
                   {trimmed}
-                  <span className="out-of-limit">{decoded.slice(LIMIT)}</span>
+                  <span className="out-of-limit">
+                    {decoded.slice(LETTER_LIMIT)}
+                  </span>
                 </Details>
               </div>
             </>
