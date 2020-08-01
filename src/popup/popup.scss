@@ -4,6 +4,15 @@
   max-height: 500px;
   width: 360px;
 
+  &--full {
+    width: 480px;
+
+    .popup__header,
+    .popup__details {
+      display: none;
+    }
+  }
+
   &__header {
     padding: 10px 0;
     border-bottom: 1px solid #ddd;

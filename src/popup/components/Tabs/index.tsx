@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Tab } from '../../../shared/enums/Tab';
 
@@ -10,23 +10,27 @@ interface Props {
   onChange(value: Tab): void;
 }
 
-const Tabs: React.FC<Props> = ({ items, active, onChange }) => (
-  <nav className="tab-navigation">
-    {Object.entries(items).map(([key, value]) => (
-      <div className="tab-navigation__item" key={key}>
-        <input
-          name={name}
-          value={key}
-          type="radio"
-          id={key}
-          checked={active === key}
-          onChange={(e) => onChange(e.target.value as Tab)}
-        />
+const Tabs: React.FC<Props> = ({ items, active, onChange }) => {
+  console.log('daa');
 
-        <label htmlFor={key}>{value}</label>
-      </div>
-    ))}
-  </nav>
-);
+  return (
+    <nav className="tab-navigation">
+      {Object.entries(items).map(([key, value]) => (
+        <div className="tab-navigation__item" key={key}>
+          <input
+            name={name}
+            value={key}
+            type="radio"
+            id={key}
+            checked={active === key}
+            onChange={(e) => onChange(e.target.value as Tab)}
+          />
 
-export default Tabs;
+          <label htmlFor={key}>{value}</label>
+        </div>
+      ))}
+    </nav>
+  );
+};
+
+export default memo(Tabs);

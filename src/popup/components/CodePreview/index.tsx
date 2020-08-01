@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useQrEncode } from 'react-qr-hooks';
 
 interface Props {
@@ -6,11 +6,14 @@ interface Props {
 }
 
 const CodePreview: React.FC<Props> = ({ decoded }) => {
+  console.log(true);
+
   const encoded = useQrEncode(decoded, {
-    width: 360,
+    // width: 360
+    width: 480,
   });
 
   return <img src={encoded} alt={decoded} />;
 };
 
-export default CodePreview;
+export default memo(CodePreview);

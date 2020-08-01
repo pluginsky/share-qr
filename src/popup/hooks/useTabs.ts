@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 
 import { StateContext } from '../context';
 
@@ -10,9 +10,9 @@ import { Tab } from '../../shared/enums/Tab';
 export const useTabs = () => {
   const [{ [StoreKey.CurrentTab]: tab }, dispatch] = useContext(StateContext);
 
-  const setTab = (id: Tab) => {
+  const setTab = useCallback((id: Tab) => {
     dispatch({ type: SET_TAB, payload: id });
-  };
+  }, []);
 
   return { tab, setTab };
 };
