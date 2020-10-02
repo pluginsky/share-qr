@@ -46,7 +46,7 @@ export const StateProvider = ({ children }: Props) => {
 
   useEffect(() => {
     extension.storage.local.set(state);
-  }, []);
+  }, [state]);
 
   return (
     <StateContext.Provider value={[state, dispatch]}>

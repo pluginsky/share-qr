@@ -12,15 +12,10 @@ export const useText = () => {
   );
 
   const setText = (value: string) => {
-    dispatch({
-      type: SET_TEXT,
-      payload: value,
-    });
+    dispatch({ type: SET_TEXT, payload: value });
   };
 
-  const clearText = () => {
-    dispatch({ type: CLEAR_TEXT });
-  };
+  const clearText = () => dispatch({ type: CLEAR_TEXT });
 
   return { text, setText, clearText };
 };
