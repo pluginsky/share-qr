@@ -32,14 +32,12 @@ export const StateProvider = ({ children }: Props) => {
     extension.storage.local.get(
       [StoreKey.SelectedText, StoreKey.CurrentTab],
       (res: PopupState) => {
-        const data = res;
-
-        if (!data[StoreKey.CurrentTab]) {
-          data[StoreKey.SelectedText] = '';
-          data[StoreKey.CurrentTab] = Tab.Url;
+        if (!res[StoreKey.CurrentTab]) {
+          res[StoreKey.SelectedText] = '';
+          res[StoreKey.CurrentTab] = Tab.Url;
         }
 
-        dispatch({ type: INIT, payload: data });
+        dispatch({ type: INIT, payload: res });
       }
     );
   }, []);
