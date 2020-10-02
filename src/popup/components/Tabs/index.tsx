@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Tab } from '../../../shared/enums/Tab';
 
@@ -7,10 +7,10 @@ import './Tabs.scss';
 interface Props {
   readonly items: Record<Tab, string>;
   readonly active: Tab;
-  onChange(value: Tab): void;
+  onChange: (value: Tab) => void;
 }
 
-const Tabs: React.FC<Props> = ({ items, active, onChange }) => (
+const Tabs = ({ items, active, onChange }: Props) => (
   <nav className="tab-navigation">
     {Object.entries(items).map(([key, value]) => (
       <div className="tab-navigation__item" key={key}>
@@ -29,4 +29,4 @@ const Tabs: React.FC<Props> = ({ items, active, onChange }) => (
   </nav>
 );
 
-export default Tabs;
+export default memo(Tabs);

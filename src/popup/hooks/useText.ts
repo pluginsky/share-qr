@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { StateContext } from '../context';
 
-import { CLEAR_TEXT, SET_TEXT } from '../store/actions';
+import { SET_TEXT, CLEAR_TEXT } from '../store/actions';
 
 import { StoreKey } from '../../shared/enums/StoreKey';
 
@@ -12,10 +12,15 @@ export const useText = () => {
   );
 
   const setText = (value: string) => {
-    dispatch({ type: SET_TEXT, payload: value });
+    dispatch({
+      type: SET_TEXT,
+      payload: value,
+    });
   };
 
-  const clearText = () => dispatch({ type: CLEAR_TEXT });
+  const clearText = () => {
+    dispatch({ type: CLEAR_TEXT });
+  };
 
   return { text, setText, clearText };
 };

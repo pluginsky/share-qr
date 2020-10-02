@@ -18,11 +18,11 @@ export interface SetTabAction {
   readonly payload: Tab;
 }
 
-export interface ClearTextAction {
-  readonly type: typeof CLEAR_TEXT;
-}
-
 export interface SetTextAction {
   readonly type: typeof SET_TEXT;
   readonly payload: string;
+}
+
+export interface ClearTextAction {
+  readonly type: typeof CLEAR_TEXT;
 }

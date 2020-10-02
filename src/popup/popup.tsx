@@ -1,6 +1,14 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  lazy,
+  Suspense,
+} from 'react';
 
 import Tabs from './components/Tabs';
+import OutOfLimit from './components/OutOfLimit';
 
 import { useTabs } from './hooks/useTabs';
 import { useText } from './hooks/useText';
@@ -20,7 +28,7 @@ const ErrorMessage = lazy(() => import('./components/ErrorMessage'));
 
 const LETTER_LIMIT = 1000;
 
-export const Popup: React.FC = () => {
+export const Popup = () => {
   const [decoded, setDecoded] = useState('');
 
   const [message, setMessage] = useState('');
@@ -31,27 +39,31 @@ export const Popup: React.FC = () => {
 
   const { url, unsupportedProtocol } = useUrl();
 
+  const handlePaste = useCallback((e: ClipboardEvent) => {
+    setTab(Tab.Text);
+
+    setText(e.clipboardData.getData('text'));
+  }, []);
+
+  const handleCopy = useCallback((e: ClipboardEvent) => {
+    e.clipboardData.setData('text/plain', decoded);
+  }, []);
+
+  const handleCut = useCallback((e: ClipboardEvent) => {
+    e.clipboardData.setData('text/plain', decoded);
+
+    setDecoded('');
+  }, []);
+
   useEffect(() => {
-    window.addEventListener('paste', (e: ClipboardEvent) => {
-      setTab(Tab.Text);
-
-      setText(e.clipboardData.getData('text'));
-    });
-
-    window.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', decoded);
-    });
-
-    window.addEventListener('cut', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', decoded);
-
-      setDecoded('');
-    });
+    window.addEventListener('paste', handlePaste);
+    window.addEventListener('copy', handleCopy);
+    window.addEventListener('cut', handleCut);
 
     return () => {
-      window.removeEventListener('paste', null);
-      window.removeEventListener('copy', null);
-      window.removeEventListener('cut', null);
+      window.removeEventListener('paste', handlePaste);
+      window.removeEventListener('copy', handleCopy);
+      window.removeEventListener('cut', handleCut);
     };
   }, []);
 
@@ -69,7 +81,7 @@ export const Popup: React.FC = () => {
     }
   }, [tab, text, url]);
 
-  const trimmed = decoded.substr(0, LETTER_LIMIT);
+  const trimmed = useMemo(() => decoded.substr(0, LETTER_LIMIT), [decoded]);
 
   return (
     <div className="popup">
@@ -96,9 +108,8 @@ export const Popup: React.FC = () => {
 
                 <Details summary={t('detailsSummary', tabNames[tab])}>
                   {trimmed}
-                  <span className="out-of-limit">
-                    {decoded.slice(LETTER_LIMIT)}
-                  </span>
+
+                  <OutOfLimit decoded={decoded} limit={LETTER_LIMIT} />
                 </Details>
               </div>
             </>

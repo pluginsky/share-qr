@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import './Details.scss';
 
 interface Props {
   readonly summary: string;
+  readonly children: React.ReactNode;
 }
 
-const Details: React.FC<Props> = ({ summary, children }) => (
+const Details = ({ summary, children }: Props) => (
   <details>
     <summary>{summary}</summary>
 
@@ -14,4 +15,4 @@ const Details: React.FC<Props> = ({ summary, children }) => (
   </details>
 );
 
-export default Details;
+export default memo(Details);

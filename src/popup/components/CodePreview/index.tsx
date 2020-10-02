@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useQrEncode } from 'react-qr-hooks';
 
 interface Props {
   readonly decoded: string;
 }
 
-const CodePreview: React.FC<Props> = ({ decoded }) => {
+const CodePreview = ({ decoded }: Props) => {
   const encoded = useQrEncode(decoded, {
     width: 360,
   });
@@ -13,4 +13,4 @@ const CodePreview: React.FC<Props> = ({ decoded }) => {
   return <img src={encoded} alt={decoded} />;
 };
 
-export default CodePreview;
+export default memo(CodePreview);

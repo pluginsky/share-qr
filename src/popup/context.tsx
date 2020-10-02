@@ -21,7 +21,11 @@ export const StateContext = React.createContext<
   [PopupState, React.Dispatch<ActionTypes>]
 >([initialState, () => null]);
 
-export const StateProvider: React.FC = ({ children }) => {
+interface Props {
+  readonly children: React.ReactNode;
+}
+
+export const StateProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
 
   useEffect(() => {
@@ -42,7 +46,7 @@ export const StateProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     extension.storage.local.set(state);
-  }, [state]);
+  }, []);
 
   return (
     <StateContext.Provider value={[state, dispatch]}>
