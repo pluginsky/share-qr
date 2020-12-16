@@ -18,11 +18,6 @@ export const useUrl = () => {
       (res: TabQueryResult[]) => {
         const currentPageProtocol = res[0].url.split('://')[0];
 
-        // TODO display different error for about/info page
-        // if (currentPageProtocol.length === 1) {
-        //   return
-        // }
-
         if (SUPPORTED_PROTOCOLS.includes(currentPageProtocol)) {
           setUrl(res[0].url);
 

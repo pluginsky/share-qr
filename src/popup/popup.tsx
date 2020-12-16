@@ -32,25 +32,27 @@ export const Popup = () => {
 
   const { url, unsupportedProtocol } = useUrl();
 
-  const handlePaste = (e: ClipboardEvent) => {
-    setTab(Tab.Text);
-
-    setText(e.clipboardData.getData('text'));
-  };
-
-  const handleCopy = (e: ClipboardEvent) => {
-    e.clipboardData.setData('text/plain', decoded);
-  };
-
-  const handleCut = (e: ClipboardEvent) => {
-    console.log(tab);
-
-    e.clipboardData.setData('text/plain', decoded);
-
-    clearText();
-  };
-
   useEffect(() => {
+    const handlePaste = (e: Event) => {
+      setTab(Tab.Text);
+
+      setText((e as ClipboardEvent).clipboardData.getData('text'));
+    };
+
+    const handleCopy = (e: Event) => {
+      if (tab === Tab.Text) {
+        (e as ClipboardEvent).clipboardData.setData('text/plain', decoded);
+      }
+    };
+
+    const handleCut = (e: Event) => {
+      if (tab === Tab.Text) {
+        (e as ClipboardEvent).clipboardData.setData('text/plain', decoded);
+
+        clearText();
+      }
+    };
+
     window.addEventListener('paste', handlePaste);
     window.addEventListener('copy', handleCopy);
     window.addEventListener('cut', handleCut);
@@ -60,7 +62,7 @@ export const Popup = () => {
       window.removeEventListener('copy', handleCopy);
       window.removeEventListener('cut', handleCut);
     };
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     if (tab) {
