@@ -4,7 +4,7 @@
 
 ## About
 
-Share selected text or page URL as QR code.
+Share selected text or page URL as QR code
 
 ##### Main Features
 
