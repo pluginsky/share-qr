@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Popup } from './popup';
@@ -8,10 +8,10 @@ import { StateProvider } from './context';
 import './index.scss';
 
 ReactDOM.render(
-  <StrictMode>
+  <React.StrictMode>
     <StateProvider>
       <Popup />
     </StateProvider>
-  </StrictMode>,
+  </React.StrictMode>,
   document.getElementById('root')
 );

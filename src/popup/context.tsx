@@ -1,5 +1,4 @@
-import { useEffect, useReducer } from 'react';
-import * as React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import extension from 'extensionizer';
 
 import { StoreKey } from '../shared/enums/StoreKey';

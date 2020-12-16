@@ -1,11 +1,4 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  lazy,
-  Suspense,
-} from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 
 import Tabs from './components/Tabs';
 import OutOfLimit from './components/OutOfLimit';
@@ -39,21 +32,23 @@ export const Popup = () => {
 
   const { url, unsupportedProtocol } = useUrl();
 
-  const handlePaste = useCallback((e: ClipboardEvent) => {
+  const handlePaste = (e: ClipboardEvent) => {
     setTab(Tab.Text);
 
     setText(e.clipboardData.getData('text'));
-  }, []);
+  };
 
-  const handleCopy = useCallback((e: ClipboardEvent) => {
+  const handleCopy = (e: ClipboardEvent) => {
     e.clipboardData.setData('text/plain', decoded);
-  }, []);
+  };
 
-  const handleCut = useCallback((e: ClipboardEvent) => {
+  const handleCut = (e: ClipboardEvent) => {
+    console.log(tab);
+
     e.clipboardData.setData('text/plain', decoded);
 
-    setDecoded('');
-  }, []);
+    clearText();
+  };
 
   useEffect(() => {
     window.addEventListener('paste', handlePaste);
@@ -81,7 +76,7 @@ export const Popup = () => {
     }
   }, [tab, text, url]);
 
-  const trimmed = useMemo(() => decoded.substr(0, LETTER_LIMIT), [decoded]);
+  const trimmed = decoded.substr(0, LETTER_LIMIT);
 
   return (
     <div className="popup">

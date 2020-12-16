@@ -31,6 +31,7 @@ extension.contextMenus.onClicked.addListener((info: Info) => {
 
     const openPopup = extension.browserAction.openPopup;
 
+    // this check is needed because Firefox and Chromium based browsers implement openPopup differently
     if (openPopup.length === 0) {
       openPopup(() => null);
     } else {

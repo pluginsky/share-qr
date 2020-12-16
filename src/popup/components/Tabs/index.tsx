@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
 import { Tab } from '../../../shared/enums/Tab';
 
@@ -15,7 +15,7 @@ const Tabs = ({ items, active, onChange }: Props) => (
     {Object.entries(items).map(([key, value]) => (
       <div className="tab-navigation__item" key={key}>
         <input
-          name={name}
+          name={key}
           value={key}
           type="radio"
           id={key}

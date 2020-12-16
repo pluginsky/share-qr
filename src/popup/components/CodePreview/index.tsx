@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import { useQrEncode } from 'react-qr-hooks';
 
 interface Props {
