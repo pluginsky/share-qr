@@ -1,6 +1,6 @@
 # ShareQR
 
-<img src="" />
+<img src="https://raw.githubusercontent.com/pluginsky/share-qr/master/assets/preview.png" />
 
 ## About
 
