@@ -1,8 +1,15 @@
 # ShareQR
 
+<img src="" />
+
 ## About
 
-Share selected text or page URL as QR code
+Share selected text or page URL as QR code.
+
+##### Main Features
+
+- display QR code for URL
+- display QR code for selected text or copy/paste/cut text from clipboard
 
 ## Setup
 
