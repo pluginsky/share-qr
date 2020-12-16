@@ -21,21 +21,23 @@ export const StateContext = React.createContext<
   [PopupState, React.Dispatch<ActionTypes>]
 >([initialState, () => null]);
 
-export const StateProvider: React.FC = ({ children }) => {
+interface Props {
+  readonly children: React.ReactNode;
+}
+
+export const StateProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
 
   useEffect(() => {
     extension.storage.local.get(
       [StoreKey.SelectedText, StoreKey.CurrentTab],
       (res: PopupState) => {
-        const data = res;
-
-        if (!data[StoreKey.CurrentTab]) {
-          data[StoreKey.SelectedText] = '';
-          data[StoreKey.CurrentTab] = Tab.Url;
+        if (!res[StoreKey.CurrentTab]) {
+          res[StoreKey.SelectedText] = '';
+          res[StoreKey.CurrentTab] = Tab.Url;
         }
 
-        dispatch({ type: INIT, payload: data });
+        dispatch({ type: INIT, payload: res });
       }
     );
   }, []);

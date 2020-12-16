@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import './ErrorMessage.scss';
 
@@ -6,8 +6,8 @@ interface Props {
   readonly message: string;
 }
 
-const ErrorMessage: React.FC<Props> = ({ message }) => (
+const ErrorMessage = ({ message }: Props) => (
   <p className="error-message">{message}</p>
 );
 
-export default ErrorMessage;
+export default memo(ErrorMessage);

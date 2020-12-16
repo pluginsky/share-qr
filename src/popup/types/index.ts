@@ -1,12 +1,12 @@
 import {
   InitAction,
   SetTabAction,
-  ClearTextAction,
   SetTextAction,
+  ClearTextAction,
 } from '../interfaces';
 
 export type ActionTypes =
   | InitAction
   | SetTabAction
-  | ClearTextAction
-  | SetTextAction;
+  | SetTextAction
+  | ClearTextAction;

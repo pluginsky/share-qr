@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { StateContext } from '../context';
 
-import { CLEAR_TEXT, SET_TEXT } from '../store/actions';
+import { SET_TEXT, CLEAR_TEXT } from '../store/actions';
 
 import { StoreKey } from '../../shared/enums/StoreKey';
 

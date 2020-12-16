@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 
 import Tabs from './components/Tabs';
+import OutOfLimit from './components/OutOfLimit';
 
 import { useTabs } from './hooks/useTabs';
 import { useText } from './hooks/useText';
@@ -20,7 +21,7 @@ const ErrorMessage = lazy(() => import('./components/ErrorMessage'));
 
 const LETTER_LIMIT = 1000;
 
-export const Popup: React.FC = () => {
+export const Popup = () => {
   const [decoded, setDecoded] = useState('');
 
   const [message, setMessage] = useState('');
@@ -32,28 +33,36 @@ export const Popup: React.FC = () => {
   const { url, unsupportedProtocol } = useUrl();
 
   useEffect(() => {
-    window.addEventListener('paste', (e: ClipboardEvent) => {
+    const handlePaste = (e: Event) => {
       setTab(Tab.Text);
 
-      setText(e.clipboardData.getData('text'));
-    });
+      setText((e as ClipboardEvent).clipboardData.getData('text'));
+    };
 
-    window.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', decoded);
-    });
+    const handleCopy = (e: Event) => {
+      if (tab === Tab.Text) {
+        (e as ClipboardEvent).clipboardData.setData('text/plain', decoded);
+      }
+    };
 
-    window.addEventListener('cut', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', decoded);
+    const handleCut = (e: Event) => {
+      if (tab === Tab.Text) {
+        (e as ClipboardEvent).clipboardData.setData('text/plain', decoded);
 
-      setDecoded('');
-    });
+        clearText();
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    window.addEventListener('copy', handleCopy);
+    window.addEventListener('cut', handleCut);
 
     return () => {
-      window.removeEventListener('paste', null);
-      window.removeEventListener('copy', null);
-      window.removeEventListener('cut', null);
+      window.removeEventListener('paste', handlePaste);
+      window.removeEventListener('copy', handleCopy);
+      window.removeEventListener('cut', handleCut);
     };
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     if (tab) {
@@ -96,9 +105,8 @@ export const Popup: React.FC = () => {
 
                 <Details summary={t('detailsSummary', tabNames[tab])}>
                   {trimmed}
-                  <span className="out-of-limit">
-                    {decoded.slice(LETTER_LIMIT)}
-                  </span>
+
+                  <OutOfLimit decoded={decoded} limit={LETTER_LIMIT} />
                 </Details>
               </div>
             </>

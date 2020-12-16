@@ -1,1 +1,1 @@
-export const supportedProtocols = ['http', 'https'];
+export const SUPPORTED_PROTOCOLS = ['http', 'https'];
