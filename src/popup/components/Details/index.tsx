@@ -7,12 +7,12 @@ interface Props {
   readonly children: React.ReactNode;
 }
 
-const Details = ({ summary, children }: Props) => (
+const Details = memo<Props>(({ summary, children }) => (
   <details>
     <summary>{summary}</summary>
 
     <p>{children}</p>
   </details>
-);
+));
 
-export default memo(Details);
+export default Details;

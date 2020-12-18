@@ -5,12 +5,12 @@ interface Props {
   readonly decoded: string;
 }
 
-const CodePreview = ({ decoded }: Props) => {
+const CodePreview = memo<Props>(({ decoded }) => {
   const encoded = useQrEncode(decoded, {
     width: 360,
   });
 
   return <img src={encoded} alt={decoded} />;
-};
+});
 
-export default memo(CodePreview);
+export default CodePreview;

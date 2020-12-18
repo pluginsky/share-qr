@@ -10,7 +10,7 @@ interface Props {
   onChange: (value: Tab) => void;
 }
 
-const Tabs = ({ items, active, onChange }: Props) => (
+const Tabs = memo<Props>(({ items, active, onChange }) => (
   <nav className="tab-navigation">
     {Object.entries(items).map(([key, value]) => (
       <div className="tab-navigation__item" key={key}>
@@ -27,6 +27,6 @@ const Tabs = ({ items, active, onChange }: Props) => (
       </div>
     ))}
   </nav>
-);
+));
 
-export default memo(Tabs);
+export default Tabs;
