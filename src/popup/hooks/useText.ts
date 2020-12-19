@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 
 import { StateContext } from '../context';
 
@@ -11,11 +11,11 @@ export const useText = () => {
     StateContext
   );
 
-  const setText = (value: string) => {
+  const setText = useCallback((value: string) => {
     dispatch({ type: SET_TEXT, payload: value });
-  };
+  }, []);
 
-  const clearText = () => dispatch({ type: CLEAR_TEXT });
+  const clearText = useCallback(() => dispatch({ type: CLEAR_TEXT }), []);
 
   return { text, setText, clearText };
 };

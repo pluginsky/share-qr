@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 
 import Tabs from './components/Tabs';
 import OutOfLimit from './components/OutOfLimit';
@@ -78,7 +78,7 @@ export const Popup = () => {
     }
   }, [tab, text, url]);
 
-  const trimmed = decoded.substr(0, LETTER_LIMIT);
+  const trimmed = useMemo(() => decoded.substr(0, LETTER_LIMIT), [decoded]);
 
   return (
     <div className="popup">
