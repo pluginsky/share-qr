@@ -1,7 +1,13 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-  plugins: ['prettier'],
+  extends: [
+    'prettier',
+    'react-app',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'plugin:jsx-a11y/recommended',
+  ],
+  plugins: ['prettier', '@typescript-eslint', 'jsx-a11y'],
   env: {
     browser: true,
     node: true,
@@ -13,7 +19,6 @@ module.exports = {
       module: true,
     },
   },
-  rules: {
-    'no-unused-vars': ['off'],
-  },
+
+  rules: { 'no-unused-vars': 'off' },
 };

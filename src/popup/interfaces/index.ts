@@ -1,4 +1,4 @@
-import { INIT, SET_TAB, CLEAR_TEXT, SET_TEXT } from '../store/actions';
+import { INIT, SET_ACTIVE_TAB, CLEAR_TEXT, SET_TEXT } from '../store/actions';
 
 import { StoreKey } from '../../shared/enums/StoreKey';
 import { Tab } from '../../shared/enums/Tab';
@@ -13,8 +13,8 @@ export interface InitAction {
   readonly payload: PopupState;
 }
 
-export interface SetTabAction {
-  readonly type: typeof SET_TAB;
+export interface SetActiveTabAction {
+  readonly type: typeof SET_ACTIVE_TAB;
   readonly payload: Tab;
 }
 

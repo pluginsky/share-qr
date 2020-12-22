@@ -1,6 +1,6 @@
 import { StoreKey } from '../../../shared/enums/StoreKey';
 
-import { INIT, SET_TAB, SET_TEXT, CLEAR_TEXT } from '../actions';
+import { INIT, SET_ACTIVE_TAB, SET_TEXT, CLEAR_TEXT } from '../actions';
 
 import { PopupState } from '../../interfaces';
 
@@ -11,7 +11,7 @@ export const stateReducer = (state: PopupState, action: ActionTypes) => {
     case INIT:
       return action.payload;
 
-    case SET_TAB:
+    case SET_ACTIVE_TAB:
       return { ...state, [StoreKey.CurrentTab]: action.payload };
 
     case SET_TEXT:

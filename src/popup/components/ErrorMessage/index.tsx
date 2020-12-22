@@ -2,12 +2,12 @@ import React, { memo } from 'react';
 
 import './ErrorMessage.scss';
 
-interface Props {
+interface ErrorMessageProps {
   readonly message: string;
 }
 
-const ErrorMessage = ({ message }: Props) => (
+const ErrorMessage = memo<ErrorMessageProps>(({ message }) => (
   <p className="error-message">{message}</p>
-);
+));
 
-export default memo(ErrorMessage);
+export default ErrorMessage;

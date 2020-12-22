@@ -2,17 +2,17 @@ import React, { memo } from 'react';
 
 import './Details.scss';
 
-interface Props {
+interface DetailsProps {
   readonly summary: string;
   readonly children: React.ReactNode;
 }
 
-const Details = ({ summary, children }: Props) => (
+const Details = memo<DetailsProps>(({ summary, children }) => (
   <details>
     <summary>{summary}</summary>
 
     <p>{children}</p>
   </details>
-);
+));
 
-export default memo(Details);
+export default Details;
