@@ -21,11 +21,11 @@ export const StateContext = React.createContext<
   [PopupState, React.Dispatch<ActionTypes>]
 >([initialState, () => null]);
 
-interface Props {
+interface StateProviderProps {
   readonly children: React.ReactNode;
 }
 
-export const StateProvider = ({ children }: Props) => {
+export const StateProvider = ({ children }: StateProviderProps) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
 
   useEffect(() => {

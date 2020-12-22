@@ -1,13 +1,13 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import './ErrorMessage.scss';
 
-interface Props {
+interface ErrorMessageProps {
   readonly message: string;
 }
 
-const ErrorMessage = memo<Props>(({ message }) => (
+const ErrorMessage = ({ message }: ErrorMessageProps) => (
   <p className="error-message">{message}</p>
-));
+);
 
 export default ErrorMessage;

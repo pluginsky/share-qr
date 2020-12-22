@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense, useMemo } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 
 import Tabs from './components/Tabs';
 import OutOfLimit from './components/OutOfLimit';
@@ -22,34 +22,46 @@ const ErrorMessage = lazy(() => import('./components/ErrorMessage'));
 const LETTER_LIMIT = 1000;
 
 export const Popup = () => {
-  const [decoded, setDecoded] = useState('');
+  const [decodedText, setDecodedText] = useState('');
 
   const [message, setMessage] = useState('');
 
-  const { tab, setTab } = useTabs();
+  const { activeTab, setActiveTab } = useTabs();
 
   const { text, setText, clearText } = useText();
 
   const { url, unsupportedProtocol } = useUrl();
 
-  useEffect(() => {
-    const handlePaste = (e: Event) => {
-      setTab(Tab.Text);
+  const isActiveTextTab = activeTab === Tab.Text;
 
-      setText((e as ClipboardEvent).clipboardData.getData('text'));
+  useEffect(() => {
+    const handlePaste = async () => {
+      setActiveTab(Tab.Text);
+
+      const clipboardData = await navigator.clipboard.readText();
+
+      setText(clipboardData);
     };
 
-    const handleCopy = (e: Event) => {
-      if (tab === Tab.Text) {
-        (e as ClipboardEvent).clipboardData.setData('text/plain', decoded);
+    const handleCopy = async () => {
+      if (isActiveTextTab) {
+        try {
+          await navigator.clipboard.writeText(decodedText);
+        } catch (err) {
+          console.error('Failed to copy: ', err);
+        }
       }
     };
 
-    const handleCut = (e: Event) => {
-      if (tab === Tab.Text) {
-        (e as ClipboardEvent).clipboardData.setData('text/plain', decoded);
+    const handleCut = async () => {
+      if (isActiveTextTab) {
+        try {
+          await navigator.clipboard.writeText(decodedText);
 
-        clearText();
+          clearText();
+        } catch (err) {
+          console.error('Failed to cut: ', err);
+        }
       }
     };
 
@@ -62,51 +74,58 @@ export const Popup = () => {
       window.removeEventListener('copy', handleCopy);
       window.removeEventListener('cut', handleCut);
     };
-  }, [tab]);
+  }, [
+    activeTab,
+    clearText,
+    decodedText,
+    isActiveTextTab,
+    setActiveTab,
+    setText,
+  ]);
 
   useEffect(() => {
-    if (tab) {
-      setDecoded(tab === Tab.Text ? text : url);
+    if (activeTab) {
+      setDecodedText(isActiveTextTab ? text : url);
 
-      if (tab === Tab.Text && !text) {
+      if (isActiveTextTab && !text) {
         setMessage(t('selectTextToEncode'));
-      } else if (tab === Tab.Url && !url) {
+      } else if (activeTab === Tab.Url && !url) {
         setMessage(
           t('protocolNotSupported', unsupportedProtocol.toUpperCase())
         );
       }
     }
-  }, [tab, text, url]);
+  }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
-  const trimmed = useMemo(() => decoded.substr(0, LETTER_LIMIT), [decoded]);
+  const trimmedText = decodedText.substr(0, LETTER_LIMIT);
 
   return (
     <div className="popup">
       <header className="popup__header">
         <Tabs
           items={tabNames}
-          onChange={(value) => setTab(value)}
-          active={tab}
+          onChange={(value) => setActiveTab(value)}
+          active={activeTab}
         />
       </header>
 
       <main className="popup__main">
         <Suspense fallback={<p className="popup__loader">{t('appLoading')}</p>}>
-          {decoded ? (
+          {decodedText ? (
             <>
-              <CodePreview decoded={trimmed} />
+              <CodePreview decoded={trimmedText} />
 
               <div className="popup__details">
-                {tab === Tab.Text && (
+                {isActiveTextTab && (
                   <button className="clear" onClick={clearText}>
                     {t('detailsClear')}
                   </button>
                 )}
 
-                <Details summary={t('detailsSummary', tabNames[tab])}>
-                  {trimmed}
+                <Details summary={t('detailsSummary', tabNames[activeTab])}>
+                  {trimmedText}
 
-                  <OutOfLimit decoded={decoded} limit={LETTER_LIMIT} />
+                  <OutOfLimit decoded={decodedText} limit={LETTER_LIMIT} />
                 </Details>
               </div>
             </>

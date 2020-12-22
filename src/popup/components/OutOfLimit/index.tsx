@@ -1,12 +1,12 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-interface Props {
+interface OutOfLimitProps {
   readonly decoded: string;
   readonly limit: number;
 }
 
-const OutOfLimit = memo<Props>(({ decoded, limit }) => (
+const OutOfLimit = ({ decoded, limit }: OutOfLimitProps) => (
   <span className="out-of-limit">{decoded.slice(limit)}</span>
-));
+);
 
 export default OutOfLimit;
