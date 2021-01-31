@@ -16,14 +16,16 @@ export const useUrl = () => {
     extension.tabs.query(
       { currentWindow: true, active: true },
       (res: TabQueryResult[]) => {
-        const currentPageProtocol = res[0].url.split('://')[0];
+        const [currentTab] = res;
 
-        if (SUPPORTED_PROTOCOLS.includes(currentPageProtocol)) {
-          setUrl(res[0].url);
+        const [currentTabProtocol] = currentTab.url.split('://');
+
+        if (SUPPORTED_PROTOCOLS.includes(currentTabProtocol)) {
+          setUrl(currentTab.url);
 
           setUnsupportedProtocol('');
         } else {
-          setUnsupportedProtocol(currentPageProtocol);
+          setUnsupportedProtocol(currentTabProtocol);
         }
       }
     );

@@ -1,8 +1,10 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useCallback } from 'react';
+import * as clipboardy from 'clipboardy';
 
 import Tabs from './components/Tabs';
 import OutOfLimit from './components/OutOfLimit';
 
+import { useClipboard } from './hooks/useClipboard';
 import { useTabs } from './hooks/useTabs';
 import { useText } from './hooks/useText';
 import { useUrl } from './hooks/useUrl';
@@ -34,54 +36,58 @@ export const Popup = () => {
 
   const isActiveTextTab = activeTab === Tab.Text;
 
-  useEffect(() => {
-    const handlePaste = async () => {
-      setActiveTab(Tab.Text);
+  const handlePaste = useCallback(async () => {
+    // console.log('aaa', navigator.clipboard.readText());
+    // console.log('dddd');
 
-      const clipboardData = await navigator.clipboard.readText();
+    // console.log(clipboardy, 'aaa');
+    try {
+      const clipboardData = await clipboardy.read();
 
       setText(clipboardData);
-    };
+    } catch (err) {
+      console.error('Failed to paste: ', err);
+    }
+    //
+    //   setActiveTab(Tab.Text);
 
-    const handleCopy = async () => {
-      if (isActiveTextTab) {
-        try {
-          await navigator.clipboard.writeText(decodedText);
-        } catch (err) {
-          console.error('Failed to copy: ', err);
-        }
+    //   // console.log(await navigator.clipboard);
+
+    //   const clipboardData = await navigator.clipboard.readText();
+
+    //   setText(clipboardData);
+    // } catch (err) {
+    //   console.error('Failed to paste: ', err);
+    // }
+  }, [setText]);
+
+  const handleCopy = async () => {
+    if (isActiveTextTab) {
+      try {
+        await clipboardy.write(decodedText);
+      } catch (err) {
+        console.error('Failed to copy: ', err);
       }
-    };
+    }
+  };
 
-    const handleCut = async () => {
-      if (isActiveTextTab) {
-        try {
-          await navigator.clipboard.writeText(decodedText);
+  const handleCut = async () => {
+    if (isActiveTextTab) {
+      try {
+        await clipboardy.write(decodedText);
 
-          clearText();
-        } catch (err) {
-          console.error('Failed to cut: ', err);
-        }
+        clearText();
+      } catch (err) {
+        console.error('Failed to cut: ', err);
       }
-    };
+    }
+  };
 
-    window.addEventListener('paste', handlePaste);
-    window.addEventListener('copy', handleCopy);
-    window.addEventListener('cut', handleCut);
-
-    return () => {
-      window.removeEventListener('paste', handlePaste);
-      window.removeEventListener('copy', handleCopy);
-      window.removeEventListener('cut', handleCut);
-    };
-  }, [
-    activeTab,
-    clearText,
-    decodedText,
-    isActiveTextTab,
-    setActiveTab,
-    setText,
-  ]);
+  useClipboard({
+    onPaste: handlePaste,
+    onCopy: handleCopy,
+    onCut: handleCut,
+  });
 
   useEffect(() => {
     if (activeTab) {

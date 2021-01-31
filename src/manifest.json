@@ -17,6 +17,12 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions": ["contextMenus", "storage", "tabs"],
+  "permissions": [
+    "clipboardRead",
+    "clipboardWrite",
+    "contextMenus",
+    "storage",
+    "tabs"
+  ],
   "default_locale": "en"
 }
