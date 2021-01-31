@@ -1,4 +1,11 @@
-import React, { useState, useEffect, lazy, Suspense, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  lazy,
+  Suspense,
+  useCallback,
+  useMemo,
+} from 'react';
 import * as clipboardy from 'clipboardy';
 
 import Tabs from './components/Tabs';
@@ -34,13 +41,9 @@ export const Popup = () => {
 
   const { url, unsupportedProtocol } = useUrl();
 
-  const isActiveTextTab = activeTab === Tab.Text;
+  const isActiveTextTab = useMemo(() => activeTab === Tab.Text, [activeTab]);
 
   const handlePaste = useCallback(async () => {
-    // console.log('aaa', navigator.clipboard.readText());
-    // console.log('dddd');
-
-    // console.log(clipboardy, 'aaa');
     try {
       const clipboardData = await clipboardy.read();
 
@@ -48,20 +51,9 @@ export const Popup = () => {
     } catch (err) {
       console.error('Failed to paste: ', err);
     }
-    //
-    //   setActiveTab(Tab.Text);
-
-    //   // console.log(await navigator.clipboard);
-
-    //   const clipboardData = await navigator.clipboard.readText();
-
-    //   setText(clipboardData);
-    // } catch (err) {
-    //   console.error('Failed to paste: ', err);
-    // }
   }, [setText]);
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     if (isActiveTextTab) {
       try {
         await clipboardy.write(decodedText);
@@ -69,9 +61,9 @@ export const Popup = () => {
         console.error('Failed to copy: ', err);
       }
     }
-  };
+  }, [decodedText, isActiveTextTab]);
 
-  const handleCut = async () => {
+  const handleCut = useCallback(async () => {
     if (isActiveTextTab) {
       try {
         await clipboardy.write(decodedText);
@@ -81,7 +73,7 @@ export const Popup = () => {
         console.error('Failed to cut: ', err);
       }
     }
-  };
+  }, [clearText, decodedText, isActiveTextTab]);
 
   useClipboard({
     onPaste: handlePaste,
@@ -103,7 +95,9 @@ export const Popup = () => {
     }
   }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
-  const trimmedText = decodedText.substr(0, LETTER_LIMIT);
+  const trimmedText = useMemo(() => decodedText.substr(0, LETTER_LIMIT), [
+    decodedText,
+  ]);
 
   return (
     <div className="popup">

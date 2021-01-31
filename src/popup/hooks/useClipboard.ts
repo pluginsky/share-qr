@@ -1,5 +1,4 @@
 interface Params {
-  // TODO support event param
   onPaste: (e: Event) => void;
   onCopy: (e: Event) => void;
   onCut: (e: Event) => void;

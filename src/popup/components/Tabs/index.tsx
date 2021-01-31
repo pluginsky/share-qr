@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Tab } from '../../../shared/enums/Tab';
 
@@ -10,7 +10,7 @@ interface TabsProps {
   onChange: (value: Tab) => void;
 }
 
-const Tabs = ({ items, active, onChange }: TabsProps) => (
+const Tabs = memo<TabsProps>(({ items, active, onChange }) => (
   <nav className="tab-navigation">
     {Object.entries(items).map(([key, value]) => (
       <div className="tab-navigation__item" key={key}>
@@ -27,6 +27,6 @@ const Tabs = ({ items, active, onChange }: TabsProps) => (
       </div>
     ))}
   </nav>
-);
+));
 
 export default Tabs;
