@@ -2,7 +2,7 @@ import { StoreKey } from '../../../shared/enums/StoreKey';
 
 import { INIT, SET_ACTIVE_TAB, SET_TEXT, CLEAR_TEXT } from '../actions';
 
-import { PopupState } from '../../interfaces';
+import type { PopupState } from '../../interfaces';
 
 import type { ActionTypes } from '../../types';
 

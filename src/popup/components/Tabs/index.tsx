@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { Tab } from '../../../shared/enums/Tab';
+import type { Tab } from '../../../shared/enums/Tab';
 
 import './Tabs.scss';
 

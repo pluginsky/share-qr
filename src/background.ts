@@ -22,20 +22,30 @@ extension.contextMenus.create({
   contexts: ['selection'],
 });
 
-extension.contextMenus.onClicked.addListener((info: Info) => {
-  if (info.menuItemId === CONTEXT_MENU_ID) {
-    extension.storage.local.set({
-      [StoreKey.SelectedText]: info.selectionText,
-      [StoreKey.CurrentTab]: Tab.Text,
-    });
+const setSelectedTextInStorage = (info: Info) => {
+  extension.storage.local.set({
+    [StoreKey.SelectedText]: info.selectionText,
+    [StoreKey.CurrentTab]: Tab.Text,
+  });
+};
 
-    const openPopup = extension.browserAction.openPopup;
+const openPopupWindow = () => {
+  const openPopup = extension.browserAction.openPopup;
 
-    // this check is needed because Firefox and Chromium based browsers implement openPopup differently
-    if (openPopup.length === 0) {
-      openPopup(() => null);
-    } else {
-      openPopup();
-    }
+  // this check is needed because Firefox and Chromium based browsers implement openPopup differently
+  if (openPopup.length === 0) {
+    openPopup(() => null);
+  } else {
+    openPopup();
   }
-});
+};
+
+const handleClicked = (info: Info) => {
+  if (info.menuItemId === CONTEXT_MENU_ID) {
+    setSelectedTextInStorage(info);
+
+    openPopupWindow();
+  }
+};
+
+extension.contextMenus.onClicked.addListener(handleClicked);

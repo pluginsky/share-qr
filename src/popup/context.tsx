@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { memo, useEffect, useReducer } from 'react';
 import extension from 'extensionizer';
 
 import { StoreKey } from '../shared/enums/StoreKey';
@@ -8,7 +8,7 @@ import { stateReducer } from './store/reducers';
 
 import { INIT } from './store/actions';
 
-import { PopupState } from './interfaces';
+import type { PopupState } from './interfaces';
 
 import type { ActionTypes } from './types';
 
@@ -25,20 +25,22 @@ interface StateProviderProps {
   readonly children: React.ReactNode;
 }
 
-export const StateProvider = ({ children }: StateProviderProps) => {
+export const StateProvider = memo<StateProviderProps>(({ children }) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
 
   useEffect(() => {
+    const createInitialState = (res: PopupState) => {
+      if (!res[StoreKey.CurrentTab]) {
+        res[StoreKey.SelectedText] = '';
+        res[StoreKey.CurrentTab] = Tab.Url;
+      }
+
+      dispatch({ type: INIT, payload: res });
+    };
+
     extension.storage.local.get(
       [StoreKey.SelectedText, StoreKey.CurrentTab],
-      (res: PopupState) => {
-        if (!res[StoreKey.CurrentTab]) {
-          res[StoreKey.SelectedText] = '';
-          res[StoreKey.CurrentTab] = Tab.Url;
-        }
-
-        dispatch({ type: INIT, payload: res });
-      }
+      createInitialState
     );
   }, []);
 
@@ -51,4 +53,4 @@ export const StateProvider = ({ children }: StateProviderProps) => {
       {children}
     </StateContext.Provider>
   );
-};
+});

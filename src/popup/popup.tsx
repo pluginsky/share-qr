@@ -44,6 +44,8 @@ export const Popup = () => {
   const isActiveTextTab = useMemo(() => activeTab === Tab.Text, [activeTab]);
 
   const handlePaste = useCallback(async () => {
+    setActiveTab(Tab.Text);
+
     try {
       const clipboardData = await clipboardy.read();
 
@@ -51,7 +53,7 @@ export const Popup = () => {
     } catch (err) {
       console.error('Failed to paste: ', err);
     }
-  }, [setText]);
+  }, [setActiveTab, setText]);
 
   const handleCopy = useCallback(async () => {
     if (isActiveTextTab) {
@@ -64,6 +66,8 @@ export const Popup = () => {
   }, [decodedText, isActiveTextTab]);
 
   const handleCut = useCallback(async () => {
+    // alert(isActiveTextTab);
+
     if (isActiveTextTab) {
       try {
         await clipboardy.write(decodedText);
@@ -81,17 +85,22 @@ export const Popup = () => {
     onCut: handleCut,
   });
 
+  // TODO
   useEffect(() => {
-    if (activeTab) {
-      setDecodedText(isActiveTextTab ? text : url);
+    if (!activeTab) {
+      return;
+    }
 
-      if (isActiveTextTab && !text) {
-        setMessage(t('selectTextToEncode'));
-      } else if (activeTab === Tab.Url && !url) {
-        setMessage(
-          t('protocolNotSupported', unsupportedProtocol.toUpperCase())
-        );
-      }
+    setDecodedText(isActiveTextTab ? text : url);
+
+    if (isActiveTextTab && !text) {
+      return setMessage(t('selectTextToEncode'));
+    }
+
+    if (activeTab === Tab.Url && !url) {
+      return setMessage(
+        t('protocolNotSupported', unsupportedProtocol.toUpperCase())
+      );
     }
   }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
@@ -110,6 +119,7 @@ export const Popup = () => {
       </header>
 
       <main className="popup__main">
+        {/* TODO move fallback to separate component */}
         <Suspense fallback={<p className="popup__loader">{t('appLoading')}</p>}>
           {decodedText ? (
             <>
@@ -128,6 +138,9 @@ export const Popup = () => {
                   <OutOfLimit decoded={decodedText} limit={LETTER_LIMIT} />
                 </Details>
               </div>
+
+              {/* TODO local message (Clipboard) */}
+              {/* <ErrorMessage message={message} /> */}
             </>
           ) : (
             <ErrorMessage message={message} />

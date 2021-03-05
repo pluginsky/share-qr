@@ -1,7 +1,12 @@
-import { INIT, SET_ACTIVE_TAB, CLEAR_TEXT, SET_TEXT } from '../store/actions';
+import type {
+  INIT,
+  SET_ACTIVE_TAB,
+  CLEAR_TEXT,
+  SET_TEXT,
+} from '../store/actions';
 
 import { StoreKey } from '../../shared/enums/StoreKey';
-import { Tab } from '../../shared/enums/Tab';
+import type { Tab } from '../../shared/enums/Tab';
 
 export interface PopupState {
   [StoreKey.SelectedText]: string;

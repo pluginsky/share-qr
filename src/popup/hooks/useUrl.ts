@@ -13,21 +13,29 @@ export const useUrl = () => {
   const [unsupportedProtocol, setUnsupportedProtocol] = useState('');
 
   useEffect(() => {
+    // TODO
+    const parseUrlAndHandleMessage = (res: TabQueryResult[]) => {
+      const [currentTab] = res;
+
+      const [currentTabProtocol] = currentTab.url.split('://');
+
+      // TODO
+      const isSupportedProtocol = SUPPORTED_PROTOCOLS.includes(
+        currentTabProtocol
+      );
+
+      if (isSupportedProtocol) {
+        setUrl(currentTab.url);
+
+        setUnsupportedProtocol('');
+      } else {
+        setUnsupportedProtocol(currentTabProtocol);
+      }
+    };
+
     extension.tabs.query(
       { currentWindow: true, active: true },
-      (res: TabQueryResult[]) => {
-        const [currentTab] = res;
-
-        const [currentTabProtocol] = currentTab.url.split('://');
-
-        if (SUPPORTED_PROTOCOLS.includes(currentTabProtocol)) {
-          setUrl(currentTab.url);
-
-          setUnsupportedProtocol('');
-        } else {
-          setUnsupportedProtocol(currentTabProtocol);
-        }
-      }
+      parseUrlAndHandleMessage
     );
   }, []);
 

@@ -7,7 +7,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:jsx-a11y/recommended',
   ],
-  plugins: ['prettier', '@typescript-eslint', 'jsx-a11y'],
+  plugins: ['prettier', '@typescript-eslint', 'jsx-a11y', 'unused-imports'],
   env: {
     browser: true,
     node: true,
@@ -19,5 +19,18 @@ module.exports = {
       module: true,
     },
   },
-  rules: { 'no-unused-vars': 'off' },
+  rules: {
+    '@typescript-eslint/consistent-type-imports': 'error',
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
+  },
 };
