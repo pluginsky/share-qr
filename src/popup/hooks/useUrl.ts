@@ -13,13 +13,11 @@ export const useUrl = () => {
   const [unsupportedProtocol, setUnsupportedProtocol] = useState('');
 
   useEffect(() => {
-    // TODO
     const parseUrlAndHandleMessage = (res: TabQueryResult[]) => {
       const [currentTab] = res;
 
       const [currentTabProtocol] = currentTab.url.split('://');
 
-      // TODO
       const isSupportedProtocol = SUPPORTED_PROTOCOLS.includes(
         currentTabProtocol
       );

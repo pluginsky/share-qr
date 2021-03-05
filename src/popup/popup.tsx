@@ -111,11 +111,7 @@ export const Popup = () => {
   return (
     <div className="popup">
       <header className="popup__header">
-        <Tabs
-          items={tabNames}
-          onChange={(value) => setActiveTab(value)}
-          active={activeTab}
-        />
+        <Tabs items={tabNames} onChange={setActiveTab} active={activeTab} />
       </header>
 
       <main className="popup__main">
