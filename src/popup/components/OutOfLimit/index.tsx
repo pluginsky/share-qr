@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface OutOfLimitProps {
   readonly decoded: string;
   readonly limit: number;

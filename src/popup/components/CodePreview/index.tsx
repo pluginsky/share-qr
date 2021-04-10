@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQrEncode } from 'react-qr-hooks';
 
 import './CodePreview.scss';

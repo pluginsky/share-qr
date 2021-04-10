@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 
 import Tabs from './components/Tabs';
 import OutOfLimit from './components/OutOfLimit';
