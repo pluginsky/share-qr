@@ -5,7 +5,8 @@
   "author": "Jakub Biesiada",
   "license": "MIT",
   "scripts": {
-    "release": "rimraf dist/* && npm run prettier && npm run lint && npm run build",
+    "release": "npm run prettier && npm run lint && npm run build",
+    "prebuild": "rimraf dist/*",
     "build": "webpack --mode production",
     "watch": "webpack --watch",
     "lint": "eslint 'src/**/*.{tsx,ts}' --fix",
