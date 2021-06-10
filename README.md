@@ -61,6 +61,7 @@ npm run watch
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [SCSS](https://sass-lang.com/)
+- [webpack](https://webpack.js.org/)
 
 ## License
 

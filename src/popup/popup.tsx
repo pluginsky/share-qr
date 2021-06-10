@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   lazy,
@@ -95,9 +95,10 @@ export const Popup = () => {
     }
   }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
-  const trimmedText = useMemo(() => decodedText.substr(0, LETTER_LIMIT), [
-    decodedText,
-  ]);
+  const trimmedText = useMemo(
+    () => decodedText.substr(0, LETTER_LIMIT),
+    [decodedText]
+  );
 
   return (
     <div className="popup">

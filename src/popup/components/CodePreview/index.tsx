@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { useQrEncode } from 'react-qr-hooks';
+
+import './CodePreview.scss';
 
 interface CodePreviewProps {
   readonly decoded: string;

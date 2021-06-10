@@ -15,9 +15,7 @@ export const useTabs = () => {
   );
 
   const setActiveTab = useCallback<SetActiveTabCallback>(
-    (id) => {
-      dispatch({ type: SET_ACTIVE_TAB, payload: id });
-    },
+    (id) => dispatch({ type: SET_ACTIVE_TAB, payload: id }),
     [dispatch]
   );
 
