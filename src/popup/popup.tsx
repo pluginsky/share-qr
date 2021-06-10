@@ -1,8 +1,17 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import {
+  useState,
+  useEffect,
+  lazy,
+  Suspense,
+  useCallback,
+  useMemo,
+} from 'react';
+import * as clipboardy from 'clipboardy';
 
 import Tabs from './components/Tabs';
 import OutOfLimit from './components/OutOfLimit';
 
+import { useClipboard } from './hooks/useClipboard';
 import { useTabs } from './hooks/useTabs';
 import { useText } from './hooks/useText';
 import { useUrl } from './hooks/useUrl';
@@ -32,56 +41,48 @@ export const Popup = () => {
 
   const { url, unsupportedProtocol } = useUrl();
 
-  const isActiveTextTab = activeTab === Tab.Text;
+  const isActiveTextTab = useMemo(() => activeTab === Tab.Text, [activeTab]);
 
-  useEffect(() => {
-    const handlePaste = async () => {
-      setActiveTab(Tab.Text);
-
-      const clipboardData = await navigator.clipboard.readText();
+  const handlePaste = useCallback(async () => {
+    try {
+      const clipboardData = await clipboardy.read();
 
       setText(clipboardData);
-    };
+    } catch (err) {
+      // TODO
+      console.error('Failed to paste: ', err);
+    }
+  }, [setText]);
 
-    const handleCopy = async () => {
-      if (isActiveTextTab) {
-        try {
-          await navigator.clipboard.writeText(decodedText);
-        } catch (err) {
-          console.error('Failed to copy: ', err);
-        }
+  const handleCopy = useCallback(async () => {
+    if (isActiveTextTab) {
+      try {
+        await clipboardy.write(decodedText);
+      } catch (err) {
+        // TODO
+        console.error('Failed to copy: ', err);
       }
-    };
+    }
+  }, [decodedText, isActiveTextTab]);
 
-    const handleCut = async () => {
-      if (isActiveTextTab) {
-        try {
-          await navigator.clipboard.writeText(decodedText);
+  const handleCut = useCallback(async () => {
+    if (isActiveTextTab) {
+      try {
+        await clipboardy.write(decodedText);
 
-          clearText();
-        } catch (err) {
-          console.error('Failed to cut: ', err);
-        }
+        clearText();
+      } catch (err) {
+        // TODO
+        console.error('Failed to cut: ', err);
       }
-    };
+    }
+  }, [clearText, decodedText, isActiveTextTab]);
 
-    window.addEventListener('paste', handlePaste);
-    window.addEventListener('copy', handleCopy);
-    window.addEventListener('cut', handleCut);
-
-    return () => {
-      window.removeEventListener('paste', handlePaste);
-      window.removeEventListener('copy', handleCopy);
-      window.removeEventListener('cut', handleCut);
-    };
-  }, [
-    activeTab,
-    clearText,
-    decodedText,
-    isActiveTextTab,
-    setActiveTab,
-    setText,
-  ]);
+  useClipboard({
+    onPaste: handlePaste,
+    onCopy: handleCopy,
+    onCut: handleCut,
+  });
 
   useEffect(() => {
     if (activeTab) {
@@ -97,7 +98,10 @@ export const Popup = () => {
     }
   }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
-  const trimmedText = decodedText.substr(0, LETTER_LIMIT);
+  // TODO fix prettier
+  const trimmedText = useMemo(() => decodedText.substr(0, LETTER_LIMIT), [
+    decodedText,
+  ]);
 
   return (
     <div className="popup">

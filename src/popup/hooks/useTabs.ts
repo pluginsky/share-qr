@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
 import { StateContext } from '../context';
 
@@ -7,14 +7,16 @@ import { SET_ACTIVE_TAB } from '../store/actions';
 import { StoreKey } from '../../shared/enums/StoreKey';
 import { Tab } from '../../shared/enums/Tab';
 
-export const useTabs = () => {
-  const [{ [StoreKey.CurrentTab]: activeTab }, dispatch] = useContext(
-    StateContext
-  );
+type SetActiveTabCallback = (id: Tab) => void;
 
-  const setActiveTab = (id: Tab) => {
-    dispatch({ type: SET_ACTIVE_TAB, payload: id });
-  };
+export const useTabs = () => {
+  const [{ [StoreKey.CurrentTab]: activeTab }, dispatch] =
+    useContext(StateContext);
+
+  const setActiveTab = useCallback<SetActiveTabCallback>(
+    (id) => dispatch({ type: SET_ACTIVE_TAB, payload: id }),
+    [dispatch]
+  );
 
   return { activeTab, setActiveTab };
 };

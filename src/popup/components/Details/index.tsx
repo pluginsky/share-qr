@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import * as React from 'react';
 
 import './Details.scss';
@@ -7,12 +8,12 @@ interface DetailsProps {
   readonly children: React.ReactNode;
 }
 
-const Details = ({ summary, children }: DetailsProps) => (
+const Details = memo<DetailsProps>(({ summary, children }) => (
   <details>
     <summary>{summary}</summary>
 
     <p>{children}</p>
   </details>
-);
+));
 
 export default Details;
