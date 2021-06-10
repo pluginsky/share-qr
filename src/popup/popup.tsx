@@ -49,6 +49,7 @@ export const Popup = () => {
 
       setText(clipboardData);
     } catch (err) {
+      // TODO
       console.error('Failed to paste: ', err);
     }
   }, [setText]);
@@ -58,6 +59,7 @@ export const Popup = () => {
       try {
         await clipboardy.write(decodedText);
       } catch (err) {
+        // TODO
         console.error('Failed to copy: ', err);
       }
     }
@@ -70,6 +72,7 @@ export const Popup = () => {
 
         clearText();
       } catch (err) {
+        // TODO
         console.error('Failed to cut: ', err);
       }
     }
@@ -95,10 +98,10 @@ export const Popup = () => {
     }
   }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
-  const trimmedText = useMemo(
-    () => decodedText.substr(0, LETTER_LIMIT),
-    [decodedText]
-  );
+  // TODO fix prettier
+  const trimmedText = useMemo(() => decodedText.substr(0, LETTER_LIMIT), [
+    decodedText,
+  ]);
 
   return (
     <div className="popup">

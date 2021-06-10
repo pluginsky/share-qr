@@ -10,9 +10,8 @@ import { Tab } from '../../shared/enums/Tab';
 type SetActiveTabCallback = (id: Tab) => void;
 
 export const useTabs = () => {
-  const [{ [StoreKey.CurrentTab]: activeTab }, dispatch] = useContext(
-    StateContext
-  );
+  const [{ [StoreKey.CurrentTab]: activeTab }, dispatch] =
+    useContext(StateContext);
 
   const setActiveTab = useCallback<SetActiveTabCallback>(
     (id) => dispatch({ type: SET_ACTIVE_TAB, payload: id }),
