@@ -2,8 +2,8 @@ import extension from 'extensionizer';
 
 import { t } from './shared/helpers/translate';
 
-import { StoreKey } from './shared/enums/StoreKey';
-import { Tab } from './shared/enums/Tab';
+import { StoreKey } from './shared/constants/StoreKey';
+import { Tab } from './shared/constants/Tab';
 
 interface Info {
   readonly menuItemId: string;

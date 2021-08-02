@@ -4,8 +4,8 @@ import { StateContext } from '../context';
 
 import { SET_ACTIVE_TAB } from '../store/actions';
 
-import { StoreKey } from '../../shared/enums/StoreKey';
-import { Tab } from '../../shared/enums/Tab';
+import { StoreKey } from '../../shared/constants/StoreKey';
+import { Tab } from '../../shared/constants/Tab';
 
 type SetActiveTabCallback = (id: Tab) => void;
 

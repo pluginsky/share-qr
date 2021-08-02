@@ -2,16 +2,14 @@ import { useEffect, useReducer } from 'react';
 import * as React from 'react';
 import extension from 'extensionizer';
 
-import { StoreKey } from '../shared/enums/StoreKey';
-import { Tab } from '../shared/enums/Tab';
+import { StoreKey } from '../shared/constants/StoreKey';
+import { Tab } from '../shared/constants/Tab';
 
 import { stateReducer } from './store/reducers';
 
 import { INIT } from './store/actions';
 
-import { PopupState } from './interfaces';
-
-import type { ActionTypes } from './types';
+import type { PopupState, ActionTypes } from './types';
 
 const initialState = {
   [StoreKey.SelectedText]: '',

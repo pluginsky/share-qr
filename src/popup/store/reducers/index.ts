@@ -1,10 +1,8 @@
-import { StoreKey } from '../../../shared/enums/StoreKey';
+import { StoreKey } from '../../../shared/constants/StoreKey';
 
 import { INIT, SET_ACTIVE_TAB, SET_TEXT, CLEAR_TEXT } from '../actions';
 
-import { PopupState } from '../../interfaces';
-
-import type { ActionTypes } from '../../types';
+import type { PopupState, ActionTypes } from '../../types';
 
 export const stateReducer = (state: PopupState, action: ActionTypes) => {
   switch (action.type) {

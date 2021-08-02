@@ -20,7 +20,7 @@ import { tabNames } from './constants/tabNames';
 
 import { t } from '../shared/helpers/translate';
 
-import { Tab } from '../shared/enums/Tab';
+import { Tab } from '../shared/constants/Tab';
 
 import './popup.scss';
 
@@ -49,7 +49,7 @@ export const Popup = () => {
 
       setText(clipboardData);
     } catch (err) {
-      // TODO
+      // TODO handle
       console.error('Failed to paste: ', err);
     }
   }, [setText]);
@@ -59,7 +59,7 @@ export const Popup = () => {
       try {
         await clipboardy.write(decodedText);
       } catch (err) {
-        // TODO
+        // TODO handle
         console.error('Failed to copy: ', err);
       }
     }
@@ -72,7 +72,7 @@ export const Popup = () => {
 
         clearText();
       } catch (err) {
-        // TODO
+        // TODO handle
         console.error('Failed to cut: ', err);
       }
     }
@@ -99,9 +99,10 @@ export const Popup = () => {
   }, [activeTab, isActiveTextTab, text, unsupportedProtocol, url]);
 
   // TODO fix prettier
-  const trimmedText = useMemo(() => decodedText.substr(0, LETTER_LIMIT), [
-    decodedText,
-  ]);
+  const trimmedText = useMemo(
+    () => decodedText.substr(0, LETTER_LIMIT),
+    [decodedText]
+  );
 
   return (
     <div className="popup">

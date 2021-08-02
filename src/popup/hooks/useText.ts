@@ -4,7 +4,7 @@ import { StateContext } from '../context';
 
 import { SET_TEXT, CLEAR_TEXT } from '../store/actions';
 
-import { StoreKey } from '../../shared/enums/StoreKey';
+import { StoreKey } from '../../shared/constants/StoreKey';
 
 type SetTextCallback = (value: string) => void;
 
