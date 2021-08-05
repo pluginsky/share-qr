@@ -9,6 +9,7 @@ export const stateReducer = (state: PopupState, action: ActionTypes) => {
     case INIT:
       return action.payload;
 
+    // TODO move to separate reducer
     case SET_ACTIVE_TAB:
       return { ...state, [StoreKey.CurrentTab]: action.payload };
 
