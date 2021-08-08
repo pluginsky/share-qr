@@ -11,6 +11,11 @@ const CodePreview = ({ decoded }: CodePreviewProps) => {
     width: 360,
   });
 
+  // TODO
+  if (!encoded) {
+    return null;
+  }
+
   // TODO display error if encoded is null
   return <img src={encoded} alt={decoded} />;
 };

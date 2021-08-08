@@ -1,4 +1,5 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
+import { useSafeContext } from 'react-safe-context-hooks';
 
 import { StateContext } from '../context';
 
@@ -11,7 +12,7 @@ type SetActiveTabCallback = (id: Tab) => void;
 
 export const useTabs = () => {
   const [{ [StoreKey.CurrentTab]: activeTab }, dispatch] =
-    useContext(StateContext);
+    useSafeContext(StateContext);
 
   const setActiveTab = useCallback<SetActiveTabCallback>(
     (id) => dispatch({ type: SET_ACTIVE_TAB, payload: id }),

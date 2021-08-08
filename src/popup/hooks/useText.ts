@@ -1,4 +1,5 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
+import { useSafeContext } from 'react-safe-context-hooks';
 
 import { StateContext } from '../context';
 
@@ -10,7 +11,7 @@ type SetTextCallback = (value: string) => void;
 
 export const useText = () => {
   const [{ [StoreKey.SelectedText]: text }, dispatch] =
-    useContext(StateContext);
+    useSafeContext(StateContext);
 
   const setText = useCallback<SetTextCallback>(
     (value) => dispatch({ type: SET_TEXT, payload: value }),

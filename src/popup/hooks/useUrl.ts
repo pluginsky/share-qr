@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import extension from 'extensionizer';
 
 import { SUPPORTED_PROTOCOLS } from '../constants/supportedProtocols';
@@ -12,10 +12,16 @@ export const useUrl = () => {
 
   const [unsupportedProtocol, setUnsupportedProtocol] = useState('');
 
+  const isMounted = useRef(true);
+
   useEffect(() => {
     extension.tabs.query(
       { currentWindow: true, active: true },
       (res: TabQueryResult[]) => {
+        if (!isMounted) {
+          return;
+        }
+
         const [currentTab] = res;
 
         const [currentTabProtocol] = currentTab.url.split('://');
@@ -29,6 +35,8 @@ export const useUrl = () => {
         }
       }
     );
+
+    return () => void (isMounted.current = false);
   }, []);
 
   return { url, unsupportedProtocol };

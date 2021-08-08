@@ -84,6 +84,7 @@ export const Popup = () => {
     onCut: handleCut,
   });
 
+  // TODO? clean up
   useEffect(() => {
     if (activeTab) {
       setDecodedText(isActiveTextTab ? text : url);

@@ -6,6 +6,7 @@ import { Tab } from '../../shared/constants/Tab';
 export interface PopupState {
   [StoreKey.SelectedText]: string;
   [StoreKey.CurrentTab]: Tab;
+  // TODO [StoreKey.CurrentTab]: Tab | undefined;
 }
 
 interface InitAction {
